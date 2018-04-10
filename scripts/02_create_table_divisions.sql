@@ -12,3 +12,4 @@ CREATE TABLE divisions
 CREATE SEQUENCE divisions_sequence
     START WITH 1
     INCREMENT BY 1;
+    
