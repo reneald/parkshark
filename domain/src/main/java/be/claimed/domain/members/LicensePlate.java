@@ -1,10 +1,10 @@
 package be.claimed.domain.members;
 
-import be.claimed.domain.entities.Entity;
+import be.claimed.domain.entities.AbstractEntity;
 
 import java.util.UUID;
 
-public class LicensePlate extends Entity{
+public class LicensePlate extends AbstractEntity {
     private String licensePlate;
     private String issuingCountry;
     private UUID memberID;

@@ -1,10 +1,10 @@
 package be.claimed.domain.members;
 
-import be.claimed.domain.entities.Entity;
+import be.claimed.domain.entities.AbstractEntity;
 
 import java.util.UUID;
 
-public class Email extends Entity {
+public class Email extends AbstractEntity {
 
     private String email;
     private UUID memberId;

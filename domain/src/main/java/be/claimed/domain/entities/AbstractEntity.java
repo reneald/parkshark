@@ -1,12 +1,14 @@
 package be.claimed.domain.entities;
 
+import javax.persistence.Id;
 import java.util.UUID;
 
-public abstract class Entity {
+public abstract class AbstractEntity {
 
+    @Id
     private UUID id;
 
-    public Entity(UUID id) {
+    public AbstractEntity(UUID id) {
         this.id = id;
     }
 

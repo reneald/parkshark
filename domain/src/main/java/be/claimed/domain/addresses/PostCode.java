@@ -1,10 +1,10 @@
 package be.claimed.domain.addresses;
 
-import be.claimed.domain.entities.Entity;
+import be.claimed.domain.entities.AbstractEntity;
 
 import java.util.UUID;
 
-public class PostCode extends Entity {
+public class PostCode extends AbstractEntity {
 
     private String postCode;
     private String label;

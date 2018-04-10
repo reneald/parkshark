@@ -1,10 +1,10 @@
 package be.claimed.domain.addresses;
 
-import be.claimed.domain.entities.Entity;
+import be.claimed.domain.entities.AbstractEntity;
 
 import java.util.UUID;
 
-public class Address extends Entity {
+public class Address extends AbstractEntity {
 
     private String streetName;
     private String streetNumber;

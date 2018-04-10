@@ -1,10 +1,10 @@
 package be.claimed.domain.members;
 
-import be.claimed.domain.entities.Entity;
+import be.claimed.domain.entities.AbstractEntity;
 
 import java.util.UUID;
 
-public class PhoneNumber extends Entity {
+public class PhoneNumber extends AbstractEntity {
     private String countryPrefix;
     private String number;
     private UUID memberId;

@@ -1,16 +1,18 @@
 package be.claimed.domain.members;
 
 
-import be.claimed.domain.entities.Entity;
+import be.claimed.domain.entities.AbstractEntity;
 import be.claimed.domain.addresses.Address;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
 
-
-public class Member extends Entity{
+@Entity
+@Table(name = "members")
+public class Member extends AbstractEntity {
 
     private String firstName;
     private String lastName;
