@@ -1,4 +1,4 @@
-package be.claimed.domain;
+package be.claimed.configuration;
 
 
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ import java.util.Properties;
 @Import(main.java.be.claimed.configuration.DatasourceConfig.class)
 @ComponentScan(basePackages = "be")
 @EnableTransactionManagement
-public class DomainConfig {
+public class Config {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){

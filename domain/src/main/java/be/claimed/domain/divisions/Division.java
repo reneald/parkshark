@@ -19,7 +19,7 @@ public class Division {
     @Column(name = "fk_parent_div_id")
     private Integer parentDivision;
 
-    private Division() {
+    public Division() {
     }
 
     public Division(String name, String originalName, String director, Integer parentDivision) {
@@ -31,5 +31,9 @@ public class Division {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -16,6 +16,10 @@
             <groupId>be.claimed</groupId>
             <artifactId>domain</artifactId>
         </dependency>
+        <dependency>
+            <groupId>be.claimed</groupId>
+            <artifactId>configuration</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

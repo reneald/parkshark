@@ -1,13 +1,13 @@
 package be.claimed.domain.divisions;
 
-import be.claimed.domain.DomainConfig;
+import be.claimed.configuration.Config;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 
-@SpringJUnitConfig(DomainConfig.class)
+@SpringJUnitConfig(Config.class)
 class DivisionRepositoryTest {
     private DivisionRepository divisionRepository;
 
