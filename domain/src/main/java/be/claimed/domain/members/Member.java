@@ -3,6 +3,7 @@ package be.claimed.domain.members;
 
 import be.claimed.domain.entities.AbstractEntity;
 import be.claimed.domain.addresses.Address;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,9 +15,17 @@ import java.util.UUID;
 @Table(name = "members")
 public class Member extends AbstractEntity {
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_address_id")
     private Address address;
+
+    @
     private Email email;
     private List<PhoneNumber> phoneNumbers;
     private List<LicensePlate> licensePlate;
