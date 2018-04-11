@@ -25,7 +25,7 @@ public class Member extends AbstractEntity {
     @JoinColumn(name = "fk_address_id")
     private Address address;
 
-    @
+
     private Email email;
     private List<PhoneNumber> phoneNumbers;
     private List<LicensePlate> licensePlate;

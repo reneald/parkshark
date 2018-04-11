@@ -16,6 +16,9 @@ public abstract class AbstractEntity {
         this.id = id;
     }
 
+    public AbstractEntity() {
+    }
+
     public void generateId() throws IllegalStateException{
         if (id != null){
             throw new IllegalStateException("Id already present");
@@ -25,5 +28,9 @@ public abstract class AbstractEntity {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }
