@@ -2,12 +2,24 @@ package be.claimed.domain.addresses;
 
 import be.claimed.domain.entities.AbstractEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table (name = "postal_codes")
 public class PostCode extends AbstractEntity {
 
+    @Column (name =  "postal_code")
     private String postCode;
+
+    @Column (name = "label")
     private String label;
+
+    public PostCode(UUID id) {
+        super(id);
+    }
 
     public PostCode(PostCodeBuilder postCodeBuilder) {
         super(postCodeBuilder.postCodeId);

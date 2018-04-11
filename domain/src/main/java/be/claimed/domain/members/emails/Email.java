@@ -1,13 +1,26 @@
-package be.claimed.domain.members;
+package be.claimed.domain.members.emails;
 
 import be.claimed.domain.entities.AbstractEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table (name = " emails")
 public class Email extends AbstractEntity {
 
+    @Column (name = "email")
     private String email;
+
+    @Column (name = "fk_member_id")
     private UUID memberId;
+
+    public Email(UUID id) {
+        super(id);
+    }
 
     public Email(EmailBuilder emailBuilder) {
         super(emailBuilder.id);

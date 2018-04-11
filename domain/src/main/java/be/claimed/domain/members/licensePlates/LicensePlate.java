@@ -1,13 +1,28 @@
-package be.claimed.domain.members;
+package be.claimed.domain.members.licensePlates;
 
 import be.claimed.domain.entities.AbstractEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table(name = "license_plates")
 public class LicensePlate extends AbstractEntity {
+
+    @Column(name = "license_plate_number")
     private String licensePlate;
+
+    @Column(name = "issuing_country")
     private String issuingCountry;
+
+    @Column(name = "fk_member_id")
     private UUID memberID;
+
+    public LicensePlate(UUID id) {
+        super(id);
+    }
 
     public LicensePlate(LicensePlateBuilder licensePlateBuilder) {
         super(licensePlateBuilder.id);
