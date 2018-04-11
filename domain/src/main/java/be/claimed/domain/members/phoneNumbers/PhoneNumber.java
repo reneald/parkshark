@@ -5,6 +5,7 @@ import be.claimed.domain.entities.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -12,13 +13,13 @@ import java.util.UUID;
 public class PhoneNumber extends AbstractEntity {
 
     @Column (name = "country_prefix")
+    @NotNull(message = "country prefix must be filled in")
     private String countryPrefix;
 
     @Column (name = "phone_number")
+    @NotNull(message = "country prefix must be filled in")
     private String number;
 
-//    @Column (name = "fk_member_id")
-//    private UUID memberId;
 
     public PhoneNumber(UUID id) {
         super(id);
@@ -28,7 +29,6 @@ public class PhoneNumber extends AbstractEntity {
         super(phoneNumberBuilder.id);
         this.countryPrefix = phoneNumberBuilder.countryPrefix;
         this.number = phoneNumberBuilder.number;
-        //this.memberId = phoneNumberBuilder.memberId;
     }
 
     public String getCountryPrefix() {
@@ -39,15 +39,11 @@ public class PhoneNumber extends AbstractEntity {
         return number;
     }
 
-//    public UUID getMemberId() {
-//        return memberId;
-//    }
 
     public static class PhoneNumberBuilder {
         private UUID id;
         private String countryPrefix;
         private String number;
-        private UUID memberId;
 
         public static PhoneNumberBuilder phoneNumber() {
             return new PhoneNumberBuilder();
@@ -57,11 +53,6 @@ public class PhoneNumber extends AbstractEntity {
             return new PhoneNumber(this);
         }
 
-        public PhoneNumberBuilder withId(UUID id) {
-            this.id = id;
-            return this;
-        }
-
         public PhoneNumberBuilder withCountryPrefix(String countryPrefix) {
             this.countryPrefix = countryPrefix;
             return this;
@@ -69,11 +60,6 @@ public class PhoneNumber extends AbstractEntity {
 
         public PhoneNumberBuilder withNumber(String number) {
             this.number = number;
-            return this;
-        }
-
-        public PhoneNumberBuilder withMemberId(UUID memberId) {
-            this.memberId = memberId;
             return this;
         }
     }

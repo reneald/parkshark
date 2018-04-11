@@ -5,6 +5,7 @@ import be.claimed.domain.entities.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -12,13 +13,12 @@ import java.util.UUID;
 public class LicensePlate extends AbstractEntity {
 
     @Column(name = "license_plate_number")
+    @NotNull(message = "country must be filled in")
     private String licensePlate;
 
     @Column(name = "issuing_country")
+    @NotNull(message = "country must be filled in")
     private String issuingCountry;
-
-//    @Column(name = "fk_member_id")
-//    private UUID memberID;
 
     public LicensePlate(UUID id) {
         super(id);
@@ -28,7 +28,6 @@ public class LicensePlate extends AbstractEntity {
         super(licensePlateBuilder.id);
         this.licensePlate = licensePlateBuilder.licensePlate;
         this.issuingCountry = licensePlateBuilder.issuingCountry;
-        //this.memberID = licensePlateBuilder.memberID;
     }
 
     public String getLicensePlate() {
@@ -39,42 +38,34 @@ public class LicensePlate extends AbstractEntity {
         return issuingCountry;
     }
 
-//    public UUID getMemberID() {
-//        return memberID;
-//    }
 
-    public static class LicensePlateBuilder{
+    public static class LicensePlateBuilder {
         private UUID id;
         private String licensePlate;
         private String issuingCountry;
-        private UUID memberID;
 
-        public static LicensePlateBuilder licensePlate(){
+        public static LicensePlateBuilder licensePlate() {
             return new LicensePlateBuilder();
         }
 
-        public LicensePlate build(){
+        public LicensePlate build() {
             return new LicensePlate(this);
         }
 
         public LicensePlateBuilder withId(UUID id) {
             this.id = id;
-        return this;
+            return this;
         }
 
         public LicensePlateBuilder withLicensePlate(String licensePlate) {
             this.licensePlate = licensePlate;
-        return this;
+            return this;
         }
 
         public LicensePlateBuilder withIssuingCountry(String issuingCountry) {
             this.issuingCountry = issuingCountry;
-        return this;
+            return this;
         }
 
-        public LicensePlateBuilder withMemberID(UUID memberID) {
-            this.memberID = memberID;
-        return this;
-        }
     }
 }

@@ -11,12 +11,8 @@ import java.util.UUID;
 public class Email extends AbstractEntity {
 
     @Column (name = "email")
+    @javax.validation.constraints.Email(message = "Please enter a valid email address")
     private String email;
-
-//
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "fk_member_id")
-//    private Member member;
 
     public Email() {
         super();
@@ -29,21 +25,15 @@ public class Email extends AbstractEntity {
     public Email(EmailBuilder emailBuilder) {
         super(emailBuilder.id);
         this.email = emailBuilder.email;
-        //this.member = emailBuilder.member;
     }
 
     public String getEmail() {
         return email;
     }
 
-//    public Member getMember() {
-//        return member;
-//    }
-
     public static class EmailBuilder {
         private UUID id;
         private String email;
-        //private Member member;
 
         public static EmailBuilder email() {
             return new EmailBuilder();
@@ -62,10 +52,5 @@ public class Email extends AbstractEntity {
             this.email = email;
             return this;
         }
-
-//        public EmailBuilder withMember(Member member) {
-//            this.member = member;
-//            return this;
-//        }
     }
 }

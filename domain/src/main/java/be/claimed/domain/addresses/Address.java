@@ -3,6 +3,8 @@ package be.claimed.domain.addresses;
 import be.claimed.domain.entities.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Entity
@@ -10,13 +12,16 @@ import java.util.UUID;
 public class Address extends AbstractEntity {
 
     @Column (name = "street_name")
+    @Size(min = 5, max = 150, message = "the street name has to be of a length between 5 and  150 characters")
     private String streetName;
 
     @Column (name = "street_number")
+    @Size(min = 1, max = 5, message = "the street name has to be of a length between 1 and  5 characters")
     private String streetNumber;
 
     @OneToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_postal_code_id")
+    @NotNull(message = "a post code should be provided")
     private PostCode postCode;
 
     public Address(UUID id) {

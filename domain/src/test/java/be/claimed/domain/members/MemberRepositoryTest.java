@@ -2,6 +2,7 @@ package be.claimed.domain.members;
 
 import be.claimed.configuration.Config;
 import be.claimed.domain.addresses.Address;
+import be.claimed.domain.addresses.PostCode;
 import be.claimed.domain.members.emails.Email;
 import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.members.phoneNumbers.PhoneNumber;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +28,17 @@ class MemberRepositoryTest {
 
     @Test
     void create_shouldStoreMemberInDataBase(){
-        Address memberAddress = Address.AddressBuilder.address().withStreetName("Somewhere Street").withStreetNumber("42").build();
-        Member memberToAdd = Member.MemberBuilder.member().withFirstName("Lupe").withLastName("Fiasco").withAddress(memberAddress).build();
+        Address memberAddress = Address.AddressBuilder.address()
+                .withStreetName("Somewhere Street")
+                .withStreetNumber("42")
+                .withPostCode(PostCode.PostCodeBuilder.postCode().withPostCode("2850").withLabel("Boom").build())
+                .build();
+        Member memberToAdd = Member.MemberBuilder.member()
+                .withFirstName("Lupe")
+                .withLastName("Fiasco")
+                .withAddress(memberAddress)
+                .withRegistrationDate(LocalDate.now())
+                .build();
 
         Member actualMember = memberRepository.create(memberToAdd);
 
@@ -38,8 +49,13 @@ class MemberRepositoryTest {
 
     @Test
     void create_whenGivenEmailAddress_shouldPersistEmailAddressAndMemberInDataBase() {
-        Email email = Email.EmailBuilder.email().withEmail("mqlksjdfoisqu").build();
-        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife").withEmail(email).build();
+        Email email = Email.EmailBuilder.email().withEmail("mqlksjdfoisqu@gmail.com").build();
+        Member cloud = Member.MemberBuilder.member()
+                .withFirstName("Cloud")
+                .withLastName("Strife")
+                .withEmail(email)
+                .withRegistrationDate(LocalDate.now())
+                .build();
 
         Member actualMember = memberRepository.create(cloud);
 
@@ -54,7 +70,9 @@ class MemberRepositoryTest {
         List<LicensePlate> licensePlates = new ArrayList<>();
         licensePlates.add(licensePlateOne);
         licensePlates.add(licensePlateTwo);
-        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife").withLicensePlate(licensePlates).build();
+        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife")
+                .withRegistrationDate(LocalDate.now())
+                .withLicensePlate(licensePlates).build();
 
         Member actualMember = memberRepository.create(cloud);
 
@@ -68,7 +86,9 @@ class MemberRepositoryTest {
         List<PhoneNumber> phoneNumbers = new ArrayList<>();
         phoneNumbers.add(phoneNumber1);
         phoneNumbers.add(phoneNumber2);
-        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife").withPhoneNumbers(phoneNumbers).build();
+        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife")
+                .withRegistrationDate(LocalDate.now())
+                .withPhoneNumbers(phoneNumbers).build();
 
         Member actualMember = memberRepository.create(cloud);
 

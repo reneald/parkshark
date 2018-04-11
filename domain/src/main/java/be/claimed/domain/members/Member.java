@@ -8,6 +8,7 @@ import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.members.phoneNumbers.PhoneNumber;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -18,9 +19,11 @@ import java.util.UUID;
 public class Member extends AbstractEntity {
 
     @Column(name = "first_name")
+    @NotNull(message = "First name cannot be empty")
     private String firstName;
 
     @Column(name = "last_name")
+    @NotNull(message = "Last name cannot be empty")
     private String lastName;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -40,6 +43,7 @@ public class Member extends AbstractEntity {
     private List<LicensePlate> licensePlates;
 
     @Column(name = "registration_date")
+    @NotNull(message = "registrationDate cannot be empty")
     private LocalDate registrationDate;
 
     public Member(MemberBuilder memberBuilder) {
