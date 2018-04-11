@@ -20,15 +20,15 @@ class DivisionRepositoryTest {
         this.divisionRepository = divisionRepository;
     }
 
-//    @Test
-//    void create_shouldCreateDivisionInDB() {
-//        //GIVEN
-//        Division division = new Division();
-//
-//        //WHEN
-//        divisionRepository.create(division);
-//
-//        //THEN
-//        Assertions.assertThat(division.getId()).isNotNull();
-//    }
+    @Test
+    void create_shouldCreateDivisionInDB() {
+        //GIVEN
+        Division division = Division.DivisionBuilder.division().build();
+
+        //WHEN
+        divisionRepository.create(division);
+
+        //THEN
+        Assertions.assertThat(division.getId()).isNotNull();
+    }
 }

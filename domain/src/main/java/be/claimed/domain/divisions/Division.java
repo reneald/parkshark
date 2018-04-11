@@ -2,6 +2,7 @@ package be.claimed.domain.divisions;
 
 import be.claimed.domain.AbstractBuilder;
 import be.claimed.domain.entities.AbstractEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,6 +15,7 @@ public class Division extends AbstractEntity {
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "division_seq")
 //    @Column(name = "id")
 //    private Integer id;
+
     @Column(name = "name")
     private String name;
     @Column(name = "name_orig")

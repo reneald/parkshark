@@ -15,8 +15,8 @@ public class Address extends AbstractEntity {
     @Column (name = "street_number")
     private String streetNumber;
 
-    @Column (name = "fk_postal_code_id")
     @OneToOne (cascade = CascadeType.PERSIST)
+    @Column (name = "fk_postal_code_id")
     private PostCode postCode;
 
     public Address(UUID id) {
