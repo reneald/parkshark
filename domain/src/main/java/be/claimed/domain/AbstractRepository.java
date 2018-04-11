@@ -4,7 +4,9 @@ import be.claimed.domain.entities.AbstractEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
+@Transactional
 public class AbstractRepository<T extends AbstractEntity> {
 
     @PersistenceContext

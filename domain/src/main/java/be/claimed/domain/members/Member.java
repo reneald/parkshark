@@ -27,15 +27,15 @@ public class Member extends AbstractEntity {
     @JoinColumn(name = "fk_address_id")
     private Address address;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")
     private Email email;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")
     private List<PhoneNumber> phoneNumbers;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")
     private List<LicensePlate> licensePlate;
 

@@ -10,6 +10,7 @@ public abstract class AbstractEntity {
 
     @Id
     @Column(name = "id")
+
     private UUID id;
 
     public AbstractEntity(UUID id) {
