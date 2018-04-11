@@ -1,6 +1,9 @@
 package be.claimed.domain.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.UUID;
@@ -9,7 +12,11 @@ import java.util.UUID;
 public abstract class AbstractEntity {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     public AbstractEntity(UUID id) {
