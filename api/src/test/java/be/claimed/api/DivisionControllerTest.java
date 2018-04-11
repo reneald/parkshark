@@ -10,12 +10,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import javax.inject.Inject;
 
-@SpringBootTest(classes = {TestApplication.class},
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+@SpringBootTest(classes = {TestApplication.class})
 class DivisionControllerTest  {
 
     @LocalServerPort
-//    @Value("${server.port}")
+    @Value("${server.port}")
     public int port;
 
     @Inject
@@ -29,10 +29,12 @@ class DivisionControllerTest  {
                 .withOriginalName("Babidi")
                 .withDirector("Bibidi");
 
-       DivisionDto divisionDto1 =  new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s", 9123, "divisions" ), divisionDto, DivisionDto.class) ;
+       DivisionDto divisionDto1 =  new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", 9123, "divisions" ), divisionDto, DivisionDto.class) ;
 
+
+        System.out.println(divisionDto1.getName());
         Assertions.assertThat(divisionDto1).isNotNull();
-//        Assertions.assertThat(divisionDto1.getId()).isNotNull().isNotEmpty();
+        Assertions.assertThat(divisionDto1.getId()).isNotNull().isNotEmpty();
 
 
 
