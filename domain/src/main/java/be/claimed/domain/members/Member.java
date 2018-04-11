@@ -3,7 +3,9 @@ package be.claimed.domain.members;
 
 import be.claimed.domain.entities.AbstractEntity;
 import be.claimed.domain.addresses.Address;
-import org.hibernate.annotations.Cascade;
+import be.claimed.domain.members.emails.Email;
+import be.claimed.domain.members.licensePlates.LicensePlate;
+import be.claimed.domain.members.phoneNumbers.PhoneNumber;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,10 +27,19 @@ public class Member extends AbstractEntity {
     @JoinColumn(name = "fk_address_id")
     private Address address;
 
-
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_member_id")
     private Email email;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_member_id")
     private List<PhoneNumber> phoneNumbers;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_member_id")
     private List<LicensePlate> licensePlate;
+
+    @Column(name = "registration_date")
     private LocalDate registrationDate;
 
     public Member(MemberBuilder memberBuilder) {
@@ -40,7 +51,6 @@ public class Member extends AbstractEntity {
         phoneNumbers = memberBuilder.phoneNumbers;
         licensePlate = memberBuilder.licensePlate;
         registrationDate = memberBuilder.registrationDate;
-
     }
 
     public String getFirstName() {

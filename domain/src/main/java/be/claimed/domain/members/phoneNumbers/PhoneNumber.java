@@ -1,13 +1,28 @@
-package be.claimed.domain.members;
+package be.claimed.domain.members.phoneNumbers;
 
 import be.claimed.domain.entities.AbstractEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table (name = "phone_numbers")
 public class PhoneNumber extends AbstractEntity {
+
+    @Column (name = "country_prefix")
     private String countryPrefix;
+
+    @Column (name = "phone_number")
     private String number;
+
+    @Column (name = "fk_member_id")
     private UUID memberId;
+
+    public PhoneNumber(UUID id) {
+        super(id);
+    }
 
     public PhoneNumber(PhoneNumberBuilder phoneNumberBuilder) {
         super(phoneNumberBuilder.id);

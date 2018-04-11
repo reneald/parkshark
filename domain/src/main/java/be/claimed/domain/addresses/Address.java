@@ -2,13 +2,26 @@ package be.claimed.domain.addresses;
 
 import be.claimed.domain.entities.AbstractEntity;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table (name = "adresses")
 public class Address extends AbstractEntity {
 
+    @Column (name = "street_name")
     private String streetName;
+
+    @Column (name = "street_number")
     private String streetNumber;
+
+    @Column (name = "fk_postal_code_id")
+    @OneToOne (cascade = CascadeType.PERSIST)
     private PostCode postCode;
+
+    public Address(UUID id) {
+        super(id);
+    }
 
     public Address(AddressBuilder addressBuilder) {
         super(addressBuilder.id);
