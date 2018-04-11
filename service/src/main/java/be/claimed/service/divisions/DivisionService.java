@@ -3,9 +3,11 @@ package be.claimed.service.divisions;
 import be.claimed.domain.divisions.Division;
 import be.claimed.domain.divisions.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 

@@ -2,8 +2,10 @@ package be.claimed.api;
 
 import be.claimed.domain.divisions.Division;
 
+import javax.inject.Named;
 import java.util.UUID;
 
+@Named
 public class DivisionMapper {
     public DivisionDto toDto (Division division){
         return DivisionDto.divisionDto().
