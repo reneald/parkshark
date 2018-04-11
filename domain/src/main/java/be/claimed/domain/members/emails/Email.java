@@ -1,11 +1,9 @@
 package be.claimed.domain.members.emails;
 
 import be.claimed.domain.entities.AbstractEntity;
+import be.claimed.domain.members.Member;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -15,8 +13,14 @@ public class Email extends AbstractEntity {
     @Column (name = "email")
     private String email;
 
-    @Column (name = "fk_member_id")
-    private UUID memberId;
+//
+//    @OneToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "fk_member_id")
+//    private Member member;
+
+    public Email() {
+        super();
+    }
 
     public Email(UUID id) {
         super(id);
@@ -25,21 +29,21 @@ public class Email extends AbstractEntity {
     public Email(EmailBuilder emailBuilder) {
         super(emailBuilder.id);
         this.email = emailBuilder.email;
-        this.memberId = emailBuilder.memberId;
+        //this.member = emailBuilder.member;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public UUID getMemberId() {
-        return memberId;
-    }
+//    public Member getMember() {
+//        return member;
+//    }
 
     public static class EmailBuilder {
         private UUID id;
         private String email;
-        private UUID memberId;
+        //private Member member;
 
         public static EmailBuilder email() {
             return new EmailBuilder();
@@ -59,9 +63,9 @@ public class Email extends AbstractEntity {
             return this;
         }
 
-        public EmailBuilder withMemberId(UUID memberId) {
-            this.memberId = memberId;
-            return this;
-        }
+//        public EmailBuilder withMember(Member member) {
+//            this.member = member;
+//            return this;
+//        }
     }
 }

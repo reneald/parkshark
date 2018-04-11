@@ -72,9 +72,9 @@ public class LicensePlate extends AbstractEntity {
         return this;
         }
 
-//        public LicensePlateBuilder withMemberID(UUID memberID) {
-//            this.memberID = memberID;
-//        return this;
-//        }
+        public LicensePlateBuilder withMemberID(UUID memberID) {
+            this.memberID = memberID;
+        return this;
+        }
     }
 }

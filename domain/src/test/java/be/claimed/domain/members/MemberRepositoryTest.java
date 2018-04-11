@@ -3,10 +3,14 @@ package be.claimed.domain.members;
 import be.claimed.configuration.Config;
 import be.claimed.domain.addresses.Address;
 import be.claimed.domain.members.emails.Email;
-import org.junit.jupiter.api.Assertions;
+import be.claimed.domain.members.licensePlates.LicensePlate;
+import be.claimed.domain.members.phoneNumbers.PhoneNumber;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,9 +43,36 @@ class MemberRepositoryTest {
 
         Member actualMember = memberRepository.create(cloud);
 
-        //assertThat(actualMember.getEmail()).isEqualTo(email);
         assertThat(actualMember.getEmail().getId()).isNotNull();
 
+    }
+
+    @Test
+    void create_whenGivenLicensePlates_shouldPersistLicensePlatesAndMembersInDataBase(){
+        LicensePlate licensePlateOne = LicensePlate.LicensePlateBuilder.licensePlate().withIssuingCountry("Belgium").withLicensePlate("blabla").build();
+        LicensePlate licensePlateTwo = LicensePlate.LicensePlateBuilder.licensePlate().withIssuingCountry("Belgium").withLicensePlate("stuff").build();
+        List<LicensePlate> licensePlates = new ArrayList<>();
+        licensePlates.add(licensePlateOne);
+        licensePlates.add(licensePlateTwo);
+        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife").withLicensePlate(licensePlates).build();
+
+        Member actualMember = memberRepository.create(cloud);
+
+        assertThat(actualMember.getLicensePlates()).contains(licensePlateOne, licensePlateTwo);
+    }
+
+    @Test
+    void create_whenGivenPhoneNumbers_shouldPersistPhoneNumbersAndMembersInDataBase() {
+        PhoneNumber phoneNumber1 = PhoneNumber.PhoneNumberBuilder.phoneNumber().withCountryPrefix("+32").withNumber("465798956").build();
+        PhoneNumber phoneNumber2 = PhoneNumber.PhoneNumberBuilder.phoneNumber().withCountryPrefix("+32").withNumber("465798965").build();
+        List<PhoneNumber> phoneNumbers = new ArrayList<>();
+        phoneNumbers.add(phoneNumber1);
+        phoneNumbers.add(phoneNumber2);
+        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife").withPhoneNumbers(phoneNumbers).build();
+
+        Member actualMember = memberRepository.create(cloud);
+
+        assertThat(actualMember.getPhoneNumbers()).contains(phoneNumber1, phoneNumber2);
     }
 
 
