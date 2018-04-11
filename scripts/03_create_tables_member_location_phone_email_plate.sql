@@ -17,18 +17,28 @@ constraint addresses_postal_codes_fk foreign key (fk_postal_code_id) references 
 );
 
 --02
+create table emails (
+id varchar2(150) not null,
+email varchar2 (100) not null,
+fk_member_id varchar2(150) not null,
+constraint emails_pk primary key (id)
+);
+
+--03
 create table members (
 id varchar2(150) not null,
 first_name varchar2 (30) not null,
 last_name varchar2 (30) not null,
 address varchar2 (100) not null,
 fk_address_id varchar2(150),
+fk_email_id varchar2(150),
 registration_date date not null,
 constraint members_pk primary key (id),
-constraint members_addresses_fk foreign key (fk_address_id) references addresses (id)
+constraint members_addresses_fk foreign key (fk_address_id) references addresses (id),
+constraint members_emails_fk foreign key (fk_email_id) references EMAILS(id)
 );
 
---03
+--04
 create table phone_numbers (
 id varchar2(150) not null,
 country_prefix varchar2 (4) not null,
@@ -36,15 +46,6 @@ phone_number varchar2 (10) not null,
 fk_member_id varchar2(150) not null,
 constraint phone_numbers_pk primary key (id),
 constraint phones_members_fk foreign key (fk_member_id) references members (id)
-);
-
---04
-create table emails (
-id varchar2(150) not null,
-email varchar2 (100) not null,
-fk_member_id varchar2(150) not null,
-constraint emails_pk primary key (id),
-constraint emails_members_fk foreign key (fk_member_id) references members (id)
 );
 
 --05

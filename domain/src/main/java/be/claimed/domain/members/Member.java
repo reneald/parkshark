@@ -28,7 +28,7 @@ public class Member extends AbstractEntity {
     private Address address;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_member_id")
+    @JoinColumn(name = "fk_email_id")
     private Email email;
 
     @OneToMany(cascade = CascadeType.PERSIST)
@@ -37,7 +37,7 @@ public class Member extends AbstractEntity {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")
-    private List<LicensePlate> licensePlate;
+    private List<LicensePlate> licensePlates;
 
     @Column(name = "registration_date")
     private LocalDate registrationDate;
@@ -49,7 +49,7 @@ public class Member extends AbstractEntity {
         address = memberBuilder.address;
         email = memberBuilder.email;
         phoneNumbers = memberBuilder.phoneNumbers;
-        licensePlate = memberBuilder.licensePlate;
+        licensePlates = memberBuilder.licensePlate;
         registrationDate = memberBuilder.registrationDate;
     }
 
@@ -73,8 +73,8 @@ public class Member extends AbstractEntity {
         return phoneNumbers;
     }
 
-    public List<LicensePlate> getLicensePlate() {
-        return licensePlate;
+    public List<LicensePlate> getLicensePlates() {
+        return licensePlates;
     }
 
     public LocalDate getRegistrationDate() {

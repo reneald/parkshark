@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table (name = "adresses")
+@Table (name = "addresses")
 public class Address extends AbstractEntity {
 
     @Column (name = "street_name")
