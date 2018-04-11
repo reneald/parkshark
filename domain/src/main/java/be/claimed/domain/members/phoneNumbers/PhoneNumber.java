@@ -17,8 +17,8 @@ public class PhoneNumber extends AbstractEntity {
     @Column (name = "phone_number")
     private String number;
 
-    @Column (name = "fk_member_id")
-    private UUID memberId;
+//    @Column (name = "fk_member_id")
+//    private UUID memberId;
 
     public PhoneNumber(UUID id) {
         super(id);
@@ -28,7 +28,7 @@ public class PhoneNumber extends AbstractEntity {
         super(phoneNumberBuilder.id);
         this.countryPrefix = phoneNumberBuilder.countryPrefix;
         this.number = phoneNumberBuilder.number;
-        this.memberId = phoneNumberBuilder.memberId;
+        //this.memberId = phoneNumberBuilder.memberId;
     }
 
     public String getCountryPrefix() {
@@ -39,9 +39,9 @@ public class PhoneNumber extends AbstractEntity {
         return number;
     }
 
-    public UUID getMemberId() {
-        return memberId;
-    }
+//    public UUID getMemberId() {
+//        return memberId;
+//    }
 
     public static class PhoneNumberBuilder {
         private UUID id;

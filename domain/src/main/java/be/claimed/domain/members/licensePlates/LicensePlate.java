@@ -17,8 +17,8 @@ public class LicensePlate extends AbstractEntity {
     @Column(name = "issuing_country")
     private String issuingCountry;
 
-    @Column(name = "fk_member_id")
-    private UUID memberID;
+//    @Column(name = "fk_member_id")
+//    private UUID memberID;
 
     public LicensePlate(UUID id) {
         super(id);
@@ -28,7 +28,7 @@ public class LicensePlate extends AbstractEntity {
         super(licensePlateBuilder.id);
         this.licensePlate = licensePlateBuilder.licensePlate;
         this.issuingCountry = licensePlateBuilder.issuingCountry;
-        this.memberID = licensePlateBuilder.memberID;
+        //this.memberID = licensePlateBuilder.memberID;
     }
 
     public String getLicensePlate() {
@@ -39,9 +39,9 @@ public class LicensePlate extends AbstractEntity {
         return issuingCountry;
     }
 
-    public UUID getMemberID() {
-        return memberID;
-    }
+//    public UUID getMemberID() {
+//        return memberID;
+//    }
 
     public static class LicensePlateBuilder{
         private UUID id;
@@ -72,9 +72,9 @@ public class LicensePlate extends AbstractEntity {
         return this;
         }
 
-        public LicensePlateBuilder withMemberID(UUID memberID) {
-            this.memberID = memberID;
-        return this;
-        }
+//        public LicensePlateBuilder withMemberID(UUID memberID) {
+//            this.memberID = memberID;
+//        return this;
+//        }
     }
 }
