@@ -2,18 +2,16 @@ package be.claimed.domain.divisions;
 
 import be.claimed.domain.AbstractBuilder;
 import be.claimed.domain.entities.AbstractEntity;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "DIVISIONS")
+@Table(name = "DIVISIONS",
+    uniqueConstraints = {@UniqueConstraint(name = "unique_name_orig",columnNames = {"NAME_ORIG"})})
 public class Division extends AbstractEntity {
-    //    @Id
-//    @SequenceGenerator(name = "division_seq", sequenceName = "DIVISION_SEQUENCE", initialValue = 1, allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "division_seq")
-//    @Column(name = "id")
-//    private Integer id;
+
     @Column(name = "name")
     private String name;
     @Column(name = "name_orig")
@@ -21,7 +19,7 @@ public class Division extends AbstractEntity {
     @Column(name = "director")
     private String director;
     @Column(name = "fk_parent_div_id")
-    private Integer parentDivision;
+    private UUID parentDivision;
 
     public Division() {
         super();
@@ -36,7 +34,7 @@ public class Division extends AbstractEntity {
 
     }
 
-    public Division(UUID id, String name, String originalName, String director, Integer parentDivision) {
+    public Division(UUID id, String name, String originalName, String director, UUID parentDivision) {
         super(id);
         this.name = name;
         this.originalName = originalName;
@@ -68,11 +66,11 @@ public class Division extends AbstractEntity {
         this.director = director;
     }
 
-    public Integer getParentDivision() {
+    public UUID getParentDivision() {
         return parentDivision;
     }
 
-    public void setParentDivision(Integer parentDivision) {
+    public void setParentDivision(UUID parentDivision) {
         this.parentDivision = parentDivision;
     }
 
@@ -81,7 +79,7 @@ public class Division extends AbstractEntity {
         private String name;
         private String originalName;
         private String director;
-        private Integer parentDivision;
+        private UUID parentDivision;
 
         public static DivisionBuilder division() {
             return new DivisionBuilder();
@@ -103,7 +101,7 @@ public class Division extends AbstractEntity {
             return this;
         }
 
-        public DivisionBuilder withOriginalName(String OriginalName) {
+        public DivisionBuilder withOriginalName(String originalName) {
             this.originalName = originalName;
             return this;
         }
@@ -113,7 +111,7 @@ public class Division extends AbstractEntity {
             return this;
         }
 
-        public DivisionBuilder parentDivision(Integer parentDivision) {
+        public DivisionBuilder withParentDivision(UUID parentDivision) {
             this.parentDivision = parentDivision;
             return this;
         }

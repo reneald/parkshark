@@ -1,16 +1,17 @@
 package be.claimed.domain.divisions;
 
 import be.claimed.domain.AbstractRepository;
-import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
 public class DivisionRepository extends AbstractRepository<Division> {
 
+    public List<Division> getAll(){
+        return super.getEntityManager().createQuery("from Division",Division.class).getResultList();
+    }
 
 }
