@@ -1,4 +1,4 @@
-package be.claimed.api;
+package be.claimed.api.divisions;
 
 public class DivisionDto {
     private String id;

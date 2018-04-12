@@ -1,4 +1,4 @@
-package be.claimed.api;
+package be.claimed.api.divisions;
 
 import be.claimed.domain.divisions.Division;
 

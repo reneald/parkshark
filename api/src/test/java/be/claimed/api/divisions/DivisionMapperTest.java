@@ -1,14 +1,13 @@
-package be.claimed.api;
+package be.claimed.api.divisions;
 
+import be.claimed.api.divisions.DivisionDto;
+import be.claimed.api.divisions.DivisionMapper;
 import be.claimed.domain.divisions.Division;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class DivisionMapperTest {
     private static DivisionMapper divisionMapper;
