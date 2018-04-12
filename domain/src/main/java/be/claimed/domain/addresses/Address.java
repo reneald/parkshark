@@ -24,6 +24,10 @@ public class Address extends AbstractEntity {
     @NotNull(message = "a post code should be provided")
     private PostCode postCode;
 
+    public Address() {
+
+    }
+
     public Address(UUID id) {
         super(id);
     }

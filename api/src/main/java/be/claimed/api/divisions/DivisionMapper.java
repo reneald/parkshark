@@ -9,7 +9,7 @@ import java.util.UUID;
 public class DivisionMapper {
     public DivisionDto toDto (Division division){
         return DivisionDto.divisionDto()
-                .withId(division.getId().toString())
+                .withId(division.getId() == null ? null : division.getId().toString())
                 .withName(division.getName())
                 .withOriginalName(division.getOriginalName())
                 .withDirector(division.getDirector())
