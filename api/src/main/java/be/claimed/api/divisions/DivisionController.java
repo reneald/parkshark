@@ -1,4 +1,4 @@
-package be.claimed.api;
+package be.claimed.api.divisions;
 
 import be.claimed.service.divisions.DivisionService;
 import org.springframework.http.HttpStatus;
@@ -6,8 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping (path = "/divisions")
