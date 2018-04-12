@@ -37,6 +37,8 @@
             <scope>test</scope>
         </dependency>
 
+
+
         <dependency>
             <groupId>be.claimed</groupId>
             <artifactId>configuration</artifactId>
