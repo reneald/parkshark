@@ -11,7 +11,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-class DivisionControllerTest extends ControllerIntegrationTest<Division, DivisionRepository> {
+class DivisionControllerIntegrationTest extends ControllerIntegrationTest<Division, DivisionRepository> {
+
 
     @Override
     @BeforeEach
@@ -52,6 +53,4 @@ class DivisionControllerTest extends ControllerIntegrationTest<Division, Divisio
         Assertions.assertThat(divisionDtos[1].getId()).isNotNull();
 
     }
-
-
 }

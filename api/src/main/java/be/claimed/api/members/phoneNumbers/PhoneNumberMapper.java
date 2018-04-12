@@ -10,7 +10,7 @@ public class PhoneNumberMapper extends AbstractMapper<PhoneNumberDto, PhoneNumbe
     @Override
     public PhoneNumberDto toDto(PhoneNumber domainObject) {
         PhoneNumberDto dtoObject =  new PhoneNumberDto();
-        dtoObject.id = domainObject.getId();
+        dtoObject.id = domainObject.getId().toString();
         dtoObject.countryPrefix = domainObject.getCountryPrefix();
         dtoObject.number = domainObject.getNumber();
         return dtoObject;

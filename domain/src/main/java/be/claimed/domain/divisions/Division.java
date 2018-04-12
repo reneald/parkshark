@@ -1,8 +1,7 @@
 package be.claimed.domain.divisions;
 
-import be.claimed.domain.AbstractBuilder;
-import be.claimed.domain.entities.AbstractEntity;
-import org.hibernate.annotations.GenericGenerator;
+import be.claimed.domain.abstracts.AbstractBuilder;
+import be.claimed.domain.abstracts.AbstractEntity;
 
 import javax.persistence.*;
 import java.util.UUID;

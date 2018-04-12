@@ -1,4 +1,4 @@
-package be.claimed.domain.entities;
+package be.claimed.domain.abstracts;
 
 import org.hibernate.annotations.GenericGenerator;
 

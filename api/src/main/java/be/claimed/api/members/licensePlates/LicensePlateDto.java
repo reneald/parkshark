@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class LicensePlateDto {
 
-    public UUID id;
+    public String id;
     public String licensePlate;
     public String issuingCountry;
 

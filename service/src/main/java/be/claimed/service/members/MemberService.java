@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,5 +21,9 @@ public class MemberService {
 
     public Member createMember (Member member){
         return memberRepository.create(member);
+    }
+
+    public List<Member> getAllMembers(){
+        return memberRepository.getAll(Member.class);
     }
 }

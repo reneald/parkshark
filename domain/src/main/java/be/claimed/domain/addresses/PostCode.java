@@ -1,6 +1,6 @@
 package be.claimed.domain.addresses;
 
-import be.claimed.domain.entities.AbstractEntity;
+import be.claimed.domain.abstracts.AbstractEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

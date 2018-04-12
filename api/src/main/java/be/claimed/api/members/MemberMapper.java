@@ -32,7 +32,7 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
     @Override
     public MemberDto toDto(Member domainObject) {
         MemberDto dtoObject = new MemberDto();
-        dtoObject.id = domainObject.getId();
+        dtoObject.id = domainObject.getId().toString();
         dtoObject.firstName = domainObject.getFirstName();
         dtoObject.lastName = domainObject.getLastName();
         dtoObject.addressDto = domainObject.getAddress() == null ? null : addressMapper.toDto(domainObject.getAddress());

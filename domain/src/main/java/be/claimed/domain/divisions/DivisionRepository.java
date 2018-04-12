@@ -1,6 +1,6 @@
 package be.claimed.domain.divisions;
 
-import be.claimed.domain.AbstractRepository;
+import be.claimed.domain.abstracts.AbstractRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;

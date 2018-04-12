@@ -23,7 +23,6 @@ class DivisionMapperTest {
                 .withName("MyParkMate")
                 .withOriginalName("MyMate")
                 .withDirector("Marc")
-                .withId(UUID.randomUUID())
                 .withParentDivision(UUID.randomUUID())
                 .build();
 
@@ -39,7 +38,6 @@ class DivisionMapperTest {
               .withName("MyParkMate")
               .withOriginalName("MyMate")
               .withDirector("Marc")
-              .withId(UUID.randomUUID().toString())
               .withParentDivision(UUID.randomUUID().toString());
 
       Division actualDivision = divisionMapper.toDomain(divisionDto);

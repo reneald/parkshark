@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class MemberDto {
 
-    public UUID id;
+    public String id;
     public String firstName;
     public String lastName;
     public AddressDto addressDto;
@@ -22,4 +22,6 @@ public class MemberDto {
 
     public MemberDto() {
     }
+
+
 }

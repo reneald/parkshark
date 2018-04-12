@@ -1,6 +1,6 @@
-package be.claimed.domain;
+package be.claimed.domain.abstracts;
 
-import be.claimed.domain.entities.AbstractEntity;
+import be.claimed.domain.abstracts.AbstractEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

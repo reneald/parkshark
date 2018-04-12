@@ -21,10 +21,9 @@ public class DivisionController {
         this.divisionMapper = divisionMapper;
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public DivisionDto create(@RequestBody DivisionDto divisionDto) {
-        System.out.println("baaaaaaaaaah");
+    @PostMapping (consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus (HttpStatus.CREATED)
+    public DivisionDto create (@RequestBody  DivisionDto divisionDto){
         return divisionMapper.toDto((divisionService.create(divisionMapper.toDomain(divisionDto))));
     }
 
