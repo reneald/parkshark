@@ -44,6 +44,7 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
                 .map(licensePlate -> licensePlateMapper.toDto(licensePlate))
                 .collect(Collectors.toList());
         dtoObject.registrationDate = domainObject.getRegistrationDate();
+        dtoObject.role = domainObject.getRole().toString();
 
         return dtoObject;
     }

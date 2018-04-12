@@ -7,9 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
-@Entity
-@Table (name = "addresses")
-public class Address extends AbstractEntity {
+@Embeddable
+public class Address {
 
     @Column (name = "street_name")
     @Size(min = 5, max = 150, message = "the street name has to be of a length between 5 and  150 characters")
@@ -24,12 +23,10 @@ public class Address extends AbstractEntity {
     @NotNull(message = "a post code should be provided")
     private PostCode postCode;
 
-    public Address(UUID id) {
-        super(id);
+    private Address() {
     }
 
     public Address(AddressBuilder addressBuilder) {
-        super(addressBuilder.id);
         this.streetName = addressBuilder.streetName;
         this.streetNumber = addressBuilder.streetNumber;
         this.postCode = addressBuilder.postCode;

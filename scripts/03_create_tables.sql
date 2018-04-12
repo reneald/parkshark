@@ -24,14 +24,7 @@ constraint emails_pk primary key (id)
 );
 
 --03
-create table roles (
-    id varchar2(150) not null,
-    role_name varchar2(30) not null,
-    CONSTRAINT roles_pk PRIMARY KEY (id)
-);
-
---04
-create table persons (
+create table members (
 id varchar2(150) not null,
 first_name varchar2 (30) not null,
 last_name varchar2 (30) not null,
@@ -39,10 +32,9 @@ fk_address_id varchar2(150),
 fk_email_id varchar2(150),
 fk_role_id varchar2(150) not null,
 registration_date date not null,
-constraint persons_pk primary key (id),
-constraint persons_addresses_fk foreign key (fk_address_id) references addresses (id),
-constraint persons_emails_fk foreign key (fk_email_id) references EMAILS(id),
-constraint persons_roles_fk foreign key (fk_role_id) references ROLES(id)
+constraint members_pk primary key (id),
+constraint members_addresses_fk foreign key (fk_address_id) references addresses (id),
+constraint members_emails_fk foreign key (fk_email_id) references EMAILS(id),
 );
 
 --04
@@ -52,7 +44,7 @@ country_prefix varchar2 (4) not null,
 phone_number varchar2 (10) not null,
 fk_person_id varchar2(150) not null,
 constraint phone_numbers_pk primary key (id),
-constraint phones_numbers_persons_fk foreign key (fk_person_id) references persons (id)
+constraint phones_numbers_members_fk foreign key (fk_person_id) references members (id)
 );
 
 --05
@@ -62,7 +54,7 @@ license_plate_number varchar2 (100) not null,
 issuing_country varchar2 (50) not null,
 fk_person_id varchar2(150) not null,
 constraint license_plates_pk primary key (id),
-constraint license_plates_persons_fk foreign key (fk_person_id) references persons(id)
+constraint license_plates_members_fk foreign key (fk_person_id) references members(id)
 );
 
   
