@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -55,6 +56,9 @@ public class Member extends AbstractEntity {
         phoneNumbers = memberBuilder.phoneNumbers;
         licensePlates = memberBuilder.licensePlate;
         registrationDate = memberBuilder.registrationDate;
+    }
+
+    private Member() {
     }
 
     public String getFirstName() {
