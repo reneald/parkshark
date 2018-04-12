@@ -17,6 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "members")
 public class Member extends AbstractEntity {
+    //TODO change EVERYTHING! (to include contact person)
 
     @Column(name = "first_name")
     @NotNull(message = "First name cannot be empty")

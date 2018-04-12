@@ -107,7 +107,6 @@ class MemberRepositoryTest {
 
         Member actualMember = memberRepository.create(cloud);
 
-//        assertThat(memberRepository.getAll(Member.class)).contains(actualMember);
         assertThat(memberRepository.getAll(Member.class).get(0)).isEqualTo(actualMember);
     }
 
