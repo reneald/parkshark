@@ -35,12 +35,12 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
         dtoObject.id = domainObject.getId();
         dtoObject.firstName = domainObject.getFirstName();
         dtoObject.lastName = domainObject.getLastName();
-        dtoObject.addressDto = addressMapper.toDto(domainObject.getAddress());
-        dtoObject.emailDto = emailMapper.toDto(domainObject.getEmail());
-        dtoObject.phoneNumbers = domainObject.getPhoneNumbers().stream()
+        dtoObject.addressDto = domainObject.getAddress() == null ? null : addressMapper.toDto(domainObject.getAddress());
+        dtoObject.emailDto = domainObject.getEmail() == null ? null : emailMapper.toDto(domainObject.getEmail());
+        dtoObject.phoneNumbers = domainObject.getPhoneNumbers() == null ? null : domainObject.getPhoneNumbers().stream()
                 .map(phoneNumber -> phoneNumberMapper.toDto(phoneNumber))
                 .collect(Collectors.toList());
-        dtoObject.licensePlates = domainObject.getLicensePlates().stream()
+        dtoObject.licensePlates = domainObject.getLicensePlates() == null ? null : domainObject.getLicensePlates().stream()
                 .map(licensePlate -> licensePlateMapper.toDto(licensePlate))
                 .collect(Collectors.toList());
         dtoObject.registrationDate = domainObject.getRegistrationDate();
@@ -53,12 +53,12 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
         Member domainObject = Member.MemberBuilder.member()
                 .withFirstName(dtoObject.firstName)
                 .withLastName(dtoObject.lastName)
-                .withAddress(addressMapper.toDomain(dtoObject.addressDto))
-                .withEmail(emailMapper.toDomain(dtoObject.emailDto))
-                .withPhoneNumbers(dtoObject.phoneNumbers.stream()
+                .withAddress(dtoObject.addressDto == null ? null : addressMapper.toDomain(dtoObject.addressDto))
+                .withEmail(dtoObject.emailDto == null ? null : emailMapper.toDomain(dtoObject.emailDto))
+                .withPhoneNumbers(dtoObject.phoneNumbers == null ? null : dtoObject.phoneNumbers.stream()
                         .map(phoneNumberDto -> phoneNumberMapper.toDomain(phoneNumberDto))
                         .collect(Collectors.toList()))
-                .withLicensePlate(dtoObject.licensePlates.stream()
+                .withLicensePlate(dtoObject.licensePlates == null ? null : dtoObject.licensePlates.stream()
                         .map(licensePlateDto -> licensePlateMapper.toDomain(licensePlateDto))
                         .collect(Collectors.toList()))
                 .withRegistrationDate(LocalDate.now())
