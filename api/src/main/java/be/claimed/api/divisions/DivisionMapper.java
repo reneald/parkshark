@@ -8,8 +8,8 @@ import java.util.UUID;
 @Named
 public class DivisionMapper {
     public DivisionDto toDto (Division division){
-        return DivisionDto.divisionDto().
-                withId(division.getId() == null? null : division.getId().toString())
+        return DivisionDto.divisionDto()
+                .withId(division.getId().toString())
                 .withName(division.getName())
                 .withOriginalName(division.getOriginalName())
                 .withDirector(division.getDirector())
@@ -18,7 +18,6 @@ public class DivisionMapper {
 
     public Division toDomain(DivisionDto divisionDto) {
         return Division.DivisionBuilder.division()
-                .withId(divisionDto.getId()==null ? null : UUID.fromString(divisionDto.getId()))
                 .withName(divisionDto.getName())
                 .withOriginalName(divisionDto.getOriginalName())
                 .withDirector(divisionDto.getDirector())

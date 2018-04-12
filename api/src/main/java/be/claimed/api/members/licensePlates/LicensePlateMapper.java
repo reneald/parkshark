@@ -10,7 +10,7 @@ public class LicensePlateMapper extends AbstractMapper<LicensePlateDto, LicenseP
     @Override
     public LicensePlateDto toDto(LicensePlate domainObject) {
         LicensePlateDto dtoObject = new LicensePlateDto();
-        dtoObject.id = domainObject.getId();
+        dtoObject.id = domainObject.getId().toString();
         dtoObject.licensePlate = domainObject.getLicensePlate();
         dtoObject.issuingCountry = domainObject.getIssuingCountry();
         return dtoObject;

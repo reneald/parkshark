@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import javax.inject.Inject;
 
-class DivisionControllerTest extends ControllerIntegrationTest {
+class DivisionControllerIntegrationTest extends ControllerIntegrationTest {
 
     @Inject
     private DivisionRepository divisionRepository;
