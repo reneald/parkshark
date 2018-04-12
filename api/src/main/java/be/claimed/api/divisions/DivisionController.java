@@ -6,9 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping (path = "/divisions")
+@RequestMapping(path = "/divisions")
 public class DivisionController {
     private DivisionService divisionService;
     private DivisionMapper divisionMapper;
@@ -19,10 +21,16 @@ public class DivisionController {
         this.divisionMapper = divisionMapper;
     }
 
-    @PostMapping (consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus (HttpStatus.CREATED)
-    public DivisionDto create (@RequestBody  DivisionDto divisionDto){
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public DivisionDto create(@RequestBody DivisionDto divisionDto) {
         System.out.println("baaaaaaaaaah");
         return divisionMapper.toDto((divisionService.create(divisionMapper.toDomain(divisionDto))));
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<DivisionDto> getAll(){
+        return divisionService.getAll().stream().map(division -> divisionMapper.toDto(division)).collect(Collectors.toList());
     }
 }

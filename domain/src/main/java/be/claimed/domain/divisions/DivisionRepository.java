@@ -7,11 +7,12 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class DivisionRepository extends AbstractRepository<Division> {
 
-    public List<Division> getAll(){
-        return super.getEntityManager().createQuery("from Division",Division.class).getResultList();
-    }
+//    public List<Division> getAll(){
+//        return super.getEntityManager().createQuery("from Division",Division.class).getResultList();
+//    }
+
+
 
 }
