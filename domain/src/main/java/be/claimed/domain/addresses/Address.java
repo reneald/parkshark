@@ -23,8 +23,9 @@ public class Address {
     @NotNull(message = "a post code should be provided")
     private PostCode postCode;
 
-    private Address() {
-    }
+
+    private Address() {}
+
 
     public Address(AddressBuilder addressBuilder) {
         this.streetName = addressBuilder.streetName;

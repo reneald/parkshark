@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,10 +23,14 @@ public class DivisionService {
     }
 
     public Division create (Division division){
-        if (divisionRepository.getAll().stream().map(division1 -> division1.getOriginalName()).collect(Collectors.toList()).contains(division.getOriginalName())) {
+        if (divisionRepository.getAll(Division.class).stream().map(division1 -> division1.getOriginalName()).collect(Collectors.toList()).contains(division.getOriginalName())) {
             throw new DataIntegrityViolationException("This division already exist");
         }
         return divisionRepository.create(division);
+    }
+
+    public List<Division> getAll(){
+        return divisionRepository.getAll(Division.class);
     }
 
 }

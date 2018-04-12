@@ -88,6 +88,14 @@ public class Member extends AbstractEntity {
         return registrationDate;
     }
 
+    @Override
+    public String toString() {
+        return "Member{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
     public static class MemberBuilder {
         private UUID memberId;
         private String firstName;

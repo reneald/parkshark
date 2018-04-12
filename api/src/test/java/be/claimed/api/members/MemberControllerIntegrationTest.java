@@ -7,7 +7,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import javax.inject.Inject;
 
-public class MemberControllerIntegrationTest extends ControllerIntegrationTest{
+public class MemberControllerIntegrationTest extends ControllerIntegrationTest {
 
     @Inject
     private MemberController memberController;

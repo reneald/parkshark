@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringJUnitConfig (Config.class)
+@Transactional
 class MemberRepositoryTest {
 
     private MemberRepository memberRepository;
@@ -51,8 +53,8 @@ class MemberRepositoryTest {
     void create_whenGivenEmailAddress_shouldPersistEmailAddressAndMemberInDataBase() {
         Email email = Email.EmailBuilder.email().withEmail("mqlksjdfoisqu@gmail.com").build();
         Member cloud = Member.MemberBuilder.member()
-                .withFirstName("Cloud")
-                .withLastName("Strife")
+                .withFirstName("Dloud")
+                .withLastName("Utrife")
                 .withEmail(email)
                 .withRegistrationDate(LocalDate.now())
                 .build();
@@ -70,7 +72,7 @@ class MemberRepositoryTest {
         List<LicensePlate> licensePlates = new ArrayList<>();
         licensePlates.add(licensePlateOne);
         licensePlates.add(licensePlateTwo);
-        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife")
+        Member cloud = Member.MemberBuilder.member().withFirstName("Bloud").withLastName("Ttrife")
                 .withRegistrationDate(LocalDate.now())
                 .withLicensePlate(licensePlates).build();
 
@@ -86,7 +88,7 @@ class MemberRepositoryTest {
         List<PhoneNumber> phoneNumbers = new ArrayList<>();
         phoneNumbers.add(phoneNumber1);
         phoneNumbers.add(phoneNumber2);
-        Member cloud = Member.MemberBuilder.member().withFirstName("Cloud").withLastName("Strife")
+        Member cloud = Member.MemberBuilder.member().withFirstName("Croud").withLastName("Stlife")
                 .withRegistrationDate(LocalDate.now())
                 .withPhoneNumbers(phoneNumbers).build();
 
