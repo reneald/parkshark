@@ -1,7 +1,7 @@
 package be.claimed.domain.members;
 
 
-import be.claimed.domain.entities.AbstractEntity;
+import be.claimed.domain.abstracts.AbstractEntity;
 import be.claimed.domain.addresses.Address;
 import be.claimed.domain.members.emails.Email;
 import be.claimed.domain.members.licensePlates.LicensePlate;
@@ -11,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 

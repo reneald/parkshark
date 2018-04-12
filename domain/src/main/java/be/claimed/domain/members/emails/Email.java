@@ -1,7 +1,6 @@
 package be.claimed.domain.members.emails;
 
-import be.claimed.domain.entities.AbstractEntity;
-import be.claimed.domain.members.Member;
+import be.claimed.domain.abstracts.AbstractEntity;
 
 import javax.persistence.*;
 import java.util.UUID;
