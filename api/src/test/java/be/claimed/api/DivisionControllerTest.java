@@ -3,19 +3,25 @@ package be.claimed.api;
 import be.claimed.domain.divisions.DivisionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Value;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.inject.Inject;
 
+import static org.springframework.boot.SpringApplication.run;
 
-@SpringBootTest(classes = {TestApplication.class})
+@SpringBootTest(classes = DivisionControllerTest.DivisionControllerIntegrationTestRunner.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(JUnitPlatform.class)
+@ExtendWith(SpringExtension.class)
 class DivisionControllerTest  {
 
     @LocalServerPort
-    @Value("${server.port}")
     public int port;
 
     @Inject
@@ -29,7 +35,7 @@ class DivisionControllerTest  {
                 .withOriginalName("Babidi")
                 .withDirector("Bibidi");
 
-       DivisionDto divisionDto1 =  new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", 9123, "divisions" ), divisionDto, DivisionDto.class) ;
+       DivisionDto divisionDto1 =  new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", port, "divisions" ), divisionDto, DivisionDto.class) ;
 
 
         System.out.println(divisionDto1.getName());
@@ -38,5 +44,11 @@ class DivisionControllerTest  {
 
 
 
+    }
+    @SpringBootApplication(scanBasePackages = "be.claimed")
+    public static class DivisionControllerIntegrationTestRunner{
+        public static void main(String[] args) {
+            run(DivisionControllerIntegrationTestRunner.class, args);
+        }
     }
 }
