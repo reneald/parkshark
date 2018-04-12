@@ -10,7 +10,7 @@ public class PostCodeMapper extends AbstractMapper<PostCodeDto, PostCode> {
     @Override
     public PostCodeDto toDto(PostCode domainObject) {
         PostCodeDto dtoObject = new PostCodeDto();
-        dtoObject.id = domainObject.getId();
+        dtoObject.id = domainObject.getId().toString();
         dtoObject.postCode = domainObject.getPostCode();
         dtoObject.label = domainObject.getLabel();
         return dtoObject;
