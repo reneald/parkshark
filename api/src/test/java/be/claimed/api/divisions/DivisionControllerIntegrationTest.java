@@ -27,7 +27,5 @@ class DivisionControllerIntegrationTest extends ControllerIntegrationTest {
         System.out.println(divisionDto1.getName());
         Assertions.assertThat(divisionDto1).isNotNull();
         Assertions.assertThat(divisionDto1.getId()).isNotNull().isNotEmpty();
-        //This comment should be removed
-
     }
 }
