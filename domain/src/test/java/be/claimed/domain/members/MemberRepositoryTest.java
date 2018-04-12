@@ -95,5 +95,21 @@ class MemberRepositoryTest {
         assertThat(actualMember.getPhoneNumbers()).contains(phoneNumber1, phoneNumber2);
     }
 
+    @Test
+    void getAll_whenGivenMembers_shouldReturnThemAsAList(){
+        Email email = Email.EmailBuilder.email().withEmail("mqlksjdfoisqu@gmail.com").build();
+        Member cloud = Member.MemberBuilder.member()
+                .withFirstName("Cloud")
+                .withLastName("Strife")
+                .withEmail(email)
+                .withRegistrationDate(LocalDate.now())
+                .build();
+
+        Member actualMember = memberRepository.create(cloud);
+
+//        assertThat(memberRepository.getAll(Member.class)).contains(actualMember);
+        assertThat(memberRepository.getAll(Member.class).get(0)).isEqualTo(actualMember);
+    }
+
 
 }
