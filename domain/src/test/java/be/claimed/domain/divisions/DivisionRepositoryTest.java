@@ -59,10 +59,7 @@ class DivisionRepositoryTest {
                 .build();
 
         divisionRepository.create(firstDivision);
-        firstDivision.setParentDivision(firstDivision.getId());
-
         divisionRepository.create(secondDivision);
-        secondDivision.setParentDivision(firstDivision.getId());
 
         List<Division> actualDivisions = divisionRepository.getAll(Division.class);
 

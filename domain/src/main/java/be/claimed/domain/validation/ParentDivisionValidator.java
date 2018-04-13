@@ -23,6 +23,6 @@ public class ParentDivisionValidator implements ConstraintValidator<ValidParentD
 
     @Override
     public boolean isValid(UUID parentDivisionId, ConstraintValidatorContext context) {
-        return divisionRepository.findById(parentDivisionId, Division.class) != null;
+        return parentDivisionId == null || divisionRepository.findById(parentDivisionId, Division.class) != null;
     }
 }
