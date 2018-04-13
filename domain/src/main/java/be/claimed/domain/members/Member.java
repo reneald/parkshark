@@ -17,6 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "members")
 public class Member extends AbstractEntity {
+    //TODO change EVERYTHING! (to include contact person)
 
     @Column(name = "first_name")
     @NotNull(message = "First name cannot be empty")
@@ -26,7 +27,8 @@ public class Member extends AbstractEntity {
     @NotNull(message = "Last name cannot be empty")
     private String lastName;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_address_id")
     private Address address;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -40,7 +42,6 @@ public class Member extends AbstractEntity {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")
     private List<LicensePlate> licensePlates;
-
 
     @Column(name = "registration_date")
     @NotNull(message = "registrationDate cannot be empty")
