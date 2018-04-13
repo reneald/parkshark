@@ -3,26 +3,34 @@ package be.claimed.domain.members.emails;
 import be.claimed.domain.abstracts.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
-@Entity
-@Table (name = " emails")
-public class Email extends AbstractEntity {
+@Embeddable
+public class Email{
 
     @Column (name = "email")
     @javax.validation.constraints.Email(message = "Please enter a valid email address")
     private String email;
 
-    public Email() {
-        super();
+    private Email() {
     }
 
-    public Email(UUID id) {
-        super(id);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email email1 = (Email) o;
+        return Objects.equals(email, email1.email);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(email);
     }
 
     public Email(EmailBuilder emailBuilder) {
-        super(emailBuilder.id);
         this.email = emailBuilder.email;
     }
 
@@ -31,7 +39,6 @@ public class Email extends AbstractEntity {
     }
 
     public static class EmailBuilder {
-        private UUID id;
         private String email;
 
         public static EmailBuilder email() {
@@ -42,10 +49,6 @@ public class Email extends AbstractEntity {
             return new Email(this);
         }
 
-        public EmailBuilder withId(UUID id) {
-            this.id = id;
-            return this;
-        }
 
         public EmailBuilder withEmail(String email) {
             this.email = email;

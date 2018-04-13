@@ -6,9 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
-@Entity
-@Table(name = "addresses")
-public class Address extends AbstractEntity {
+
+@Embeddable
+public class Address{
 
     @Column (name = "street_name")
     @Size(min = 5, max = 150, message = "the street name has to be of a length between 5 and  150 characters")
@@ -27,12 +27,8 @@ public class Address extends AbstractEntity {
 
     }
 
-    public Address(UUID id) {
-        super(id);
-    }
 
     public Address(AddressBuilder addressBuilder) {
-        super(addressBuilder.id);
         this.streetName = addressBuilder.streetName;
         this.streetNumber = addressBuilder.streetNumber;
         this.postCode = addressBuilder.postCode;
@@ -51,7 +47,6 @@ public class Address extends AbstractEntity {
     }
 
     public static class AddressBuilder {
-        private UUID id;
         private String streetName;
         private String streetNumber;
         private PostCode postCode;
@@ -62,11 +57,6 @@ public class Address extends AbstractEntity {
 
         public Address build() {
             return new Address(this);
-        }
-
-        public AddressBuilder withId(UUID id) {
-            this.id = id;
-            return this;
         }
 
         public AddressBuilder withStreetName(String streetName) {

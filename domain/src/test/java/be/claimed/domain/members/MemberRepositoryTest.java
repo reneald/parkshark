@@ -61,7 +61,7 @@ class MemberRepositoryTest {
 
         Member actualMember = memberRepository.create(cloud);
 
-        assertThat(actualMember.getEmail().getId()).isNotNull();
+        assertThat(actualMember.getEmail()).isEqualTo(email);
 
     }
 
@@ -83,8 +83,8 @@ class MemberRepositoryTest {
 
     @Test
     void create_whenGivenPhoneNumbers_shouldPersistPhoneNumbersAndMembersInDataBase() {
-        PhoneNumber phoneNumber1 = PhoneNumber.PhoneNumberBuilder.phoneNumber().withCountryPrefix("+32").withNumber("465798956").build();
-        PhoneNumber phoneNumber2 = PhoneNumber.PhoneNumberBuilder.phoneNumber().withCountryPrefix("+32").withNumber("465798965").build();
+        PhoneNumber phoneNumber1 = PhoneNumber.PhoneNumberBuilder.phoneNumber().withMobilePhoneNumber("465798956").build();
+        PhoneNumber phoneNumber2 = PhoneNumber.PhoneNumberBuilder.phoneNumber().withTelephoneNumber("465798965").build();
         List<PhoneNumber> phoneNumbers = new ArrayList<>();
         phoneNumbers.add(phoneNumber1);
         phoneNumbers.add(phoneNumber2);
@@ -111,6 +111,5 @@ class MemberRepositoryTest {
 
         assertThat(memberRepository.getAll(Member.class).get(0)).isEqualTo(actualMember);
     }
-
 
 }

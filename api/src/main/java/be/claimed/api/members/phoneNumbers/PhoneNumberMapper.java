@@ -10,17 +10,16 @@ public class PhoneNumberMapper extends AbstractMapper<PhoneNumberDto, PhoneNumbe
     @Override
     public PhoneNumberDto toDto(PhoneNumber domainObject) {
         PhoneNumberDto dtoObject =  new PhoneNumberDto();
-        dtoObject.id = domainObject.getId().toString();
-        dtoObject.countryPrefix = domainObject.getCountryPrefix();
-        dtoObject.number = domainObject.getNumber();
+        dtoObject.mobilePhoneNumber = domainObject.getMobilePhoneNumber();
+        dtoObject.telephoneNumber = domainObject.getTelephoneNumber();
         return dtoObject;
     }
 
     @Override
     public PhoneNumber toDomain(PhoneNumberDto dtoObject) {
         PhoneNumber domainObject = PhoneNumber.PhoneNumberBuilder.phoneNumber()
-                .withCountryPrefix(dtoObject.countryPrefix)
-                .withNumber(dtoObject.number)
+                .withMobilePhoneNumber(dtoObject.mobilePhoneNumber)
+                .withTelephoneNumber(dtoObject.telephoneNumber)
                 .build();
         return domainObject;
     }
