@@ -1,11 +1,8 @@
 package be.claimed.api;
 
 
-import be.claimed.domain.AbstractRepository;
-import be.claimed.domain.divisions.Division;
-import be.claimed.domain.entities.AbstractEntity;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import be.claimed.domain.abstracts.AbstractEntity;
+import be.claimed.domain.abstracts.AbstractRepository;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
@@ -14,11 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.transaction.TestTransaction;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
 import static org.springframework.boot.SpringApplication.run;
-
+@Transactional
 @SpringBootTest(classes = ControllerIntegrationTest.ControllerIntegrationTestRunner.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
