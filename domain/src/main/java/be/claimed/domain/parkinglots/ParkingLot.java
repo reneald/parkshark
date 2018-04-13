@@ -25,7 +25,7 @@ public class ParkingLot extends AbstractEntity {
     @NotNull
     private Division division;
 
-    @Embedded
+    @Enumerated(EnumType.STRING)
     @NotNull
     private BuildingType buildingType;
 
