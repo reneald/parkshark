@@ -10,6 +10,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -49,4 +51,6 @@ public class Config {
         properties.setProperty("hibernate.hbm2ddl.auto", "create");
         return properties;
     }
+
+
 }
