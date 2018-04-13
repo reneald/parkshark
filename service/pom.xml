@@ -20,6 +20,12 @@
             <groupId>be.claimed</groupId>
             <artifactId>configuration</artifactId>
         </dependency>
+        <dependency>
+            <groupId>be.claimed</groupId>
+            <artifactId>configuration</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

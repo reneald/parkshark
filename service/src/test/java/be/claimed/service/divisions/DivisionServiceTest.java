@@ -3,7 +3,6 @@ package be.claimed.service.divisions;
 import be.claimed.configuration.Config;
 import be.claimed.domain.divisions.Division;
 import be.claimed.domain.divisions.DivisionRepository;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +52,7 @@ class DivisionServiceTest {
         division.setId(UUID.randomUUID());
 
         //WHEN&THEN
-        Assertions.assertThatExceptionOfType(InvalidDataAccessApiUsageException.class).isThrownBy(() -> divisionService.create(division));
+        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class).isThrownBy(() -> divisionService.create(division));
     }
 
     @Test

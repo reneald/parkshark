@@ -1,7 +1,5 @@
 package be.claimed.api.divisions;
 
-import be.claimed.api.divisions.DivisionDto;
-import be.claimed.api.divisions.DivisionMapper;
 import be.claimed.domain.divisions.Division;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
