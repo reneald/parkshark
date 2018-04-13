@@ -1,16 +1,23 @@
 package be.claimed.service.divisions;
 
+import be.claimed.MockitoExtension;
 import be.claimed.configuration.Config;
 import be.claimed.domain.divisions.Division;
 import be.claimed.domain.divisions.DivisionRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import javax.transaction.Transactional;
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,12 +26,19 @@ import java.util.UUID;
 class DivisionServiceTest {
     private DivisionService divisionService;
     private DivisionRepository divisionRepository;
+//    @Mock
+//    private DivisionRepository mockRepository;
 
     @Autowired
     public DivisionServiceTest(DivisionService divisionService, DivisionRepository divisionRepository) {
         this.divisionService = divisionService;
         this.divisionRepository = divisionRepository;
     }
+
+//    @BeforeEach
+//    void setUp() {
+//        Mockito.when(mockRepository.getAll(Division.class)).thenReturn();
+//    }
 
 //    @AfterEach
 //    public void clearDataBase() {
@@ -62,16 +76,26 @@ class DivisionServiceTest {
         divisionService.create(firstDivision);
 
         //WHEN&THEN
-        Assertions.assertThatExceptionOfType(DataIntegrityViolationException.class).isThrownBy(() -> divisionService.create(secondDivision));
+        Assertions.assertThatExceptionOfType(ValidationException.class).isThrownBy(() -> divisionService.create(secondDivision));
     }
 
     @Test
     void getAll() {
-        Division firstDivision = Division.DivisionBuilder.division().build();
-        Division secondDivision = Division.DivisionBuilder.division().build();
+        Division firstDivision = Division.DivisionBuilder.division()
+                .withName("firstDivision")
+                .withOriginalName("originalFirstName")
+                .withDirector("Yoda")
+                .build();
+        Division secondDivision = Division.DivisionBuilder.division()
+                .withName("secondDivision")
+                .withOriginalName("originalSecondName")
+                .withDirector("Obi-Wan")
+                .build();
 
         divisionRepository.create(firstDivision);
+        firstDivision.setParentDivision(firstDivision.getId());
         divisionRepository.create(secondDivision);
+        secondDivision.setParentDivision(firstDivision.getId());
 
         List<Division> actualDivisions = divisionService.getAll();
 
