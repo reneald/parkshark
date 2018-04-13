@@ -34,8 +34,7 @@ public class Member extends AbstractEntity {
     private Email email;
 
     @Embedded
-
-    private List<@NotNull(message = "You must provide at least one phone number")PhoneNumber> phoneNumbers;
+    private List<@NotNull(message = "You must provide at least one phone number") PhoneNumber> phoneNumbers;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")
