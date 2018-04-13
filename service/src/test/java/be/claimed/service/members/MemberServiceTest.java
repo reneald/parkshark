@@ -14,6 +14,7 @@ import static org.mockito.Mockito.*;
 class MemberServiceTest {
 
     private MemberService memberService;
+
     @Mock
     private MemberRepository memberRepository;
     private Member firstMember;

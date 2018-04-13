@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 
 @Transactional
 public abstract class AbstractRepository<T extends AbstractEntity> {
@@ -26,5 +27,9 @@ public abstract class AbstractRepository<T extends AbstractEntity> {
         String className = String.format("from %s", abstractClass.getSimpleName());
         return getEntityManager().createQuery(className, abstractClass)
                 .getResultList();
+    }
+
+    public T findById(UUID id, Class<T> abstractClass) {
+        return entityManager.find(abstractClass, id);
     }
 }

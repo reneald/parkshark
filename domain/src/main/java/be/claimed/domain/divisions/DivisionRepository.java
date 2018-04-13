@@ -9,10 +9,4 @@ import java.util.List;
 @Repository
 public class DivisionRepository extends AbstractRepository<Division> {
 
-//    public List<Division> getAll(){
-//        return super.getEntityManager().createQuery("from Division",Division.class).getResultList();
-//    }
-
-
-
 }

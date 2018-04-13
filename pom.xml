@@ -58,7 +58,7 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- External Dependencies -->
+            <!-- spring boot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
@@ -172,6 +172,7 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <forkCount>0</forkCount>
                 </configuration>
                 <dependencies>
                     <dependency>

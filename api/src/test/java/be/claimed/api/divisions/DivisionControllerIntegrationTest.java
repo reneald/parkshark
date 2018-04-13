@@ -1,5 +1,6 @@
 package be.claimed.api.divisions;
 
+import be.claimed.MockitoExtension;
 import be.claimed.api.ControllerIntegrationTest;
 import be.claimed.domain.divisions.Division;
 import be.claimed.domain.divisions.DivisionRepository;
@@ -7,11 +8,16 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
 
+@ExtendWith(MockitoExtension.class)
 class DivisionControllerIntegrationTest extends ControllerIntegrationTest<Division, DivisionRepository> {
+
 
 
     @Override
@@ -41,8 +47,8 @@ class DivisionControllerIntegrationTest extends ControllerIntegrationTest<Divisi
 
     @Test
     void getAll() {
-        DivisionDto divisionDto1 = DivisionDto.divisionDto().withName("ekufg").withOriginalName("qskdug");
-        DivisionDto divisionDto2 = DivisionDto.divisionDto().withName("bouri").withOriginalName("boura");
+        DivisionDto divisionDto1 = DivisionDto.divisionDto().withName("ekufg").withOriginalName("qskdug").withDirector("Bibidi");
+        DivisionDto divisionDto2 = DivisionDto.divisionDto().withName("bouri").withOriginalName("boura").withDirector("Bibidi");
 
         new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", getPort(), "divisions"), divisionDto1, DivisionDto.class);
         new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", getPort(), "divisions"), divisionDto2, DivisionDto.class);

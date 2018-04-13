@@ -2,8 +2,10 @@ package be.claimed.domain.divisions;
 
 import be.claimed.domain.abstracts.AbstractBuilder;
 import be.claimed.domain.abstracts.AbstractEntity;
+import be.claimed.domain.validation.ValidParentDivision;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -11,12 +13,16 @@ import java.util.UUID;
     uniqueConstraints = {@UniqueConstraint(name = "unique_name_orig",columnNames = {"NAME_ORIG"})})
 public class Division extends AbstractEntity {
 
+    @NotNull(message = "Please provide a division name.")
     @Column(name = "name")
     private String name;
+    @NotNull(message = "Please provide the original name of the division.")
     @Column(name = "name_orig")
     private String originalName;
+    @NotNull(message = "Please provide a director for the division.")
     @Column(name = "director")
     private String director;
+    @ValidParentDivision
     @Column(name = "fk_parent_div_id")
     private UUID parentDivision;
 
