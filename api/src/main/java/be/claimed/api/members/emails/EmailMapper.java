@@ -11,7 +11,6 @@ public class EmailMapper extends AbstractMapper<EmailDto, Email> {
     @Override
     public EmailDto toDto(Email domainObject) {
         EmailDto dtoObject = new EmailDto();
-        dtoObject.id = domainObject.getId().toString();
         dtoObject.email = domainObject.getEmail();
         return dtoObject;
     }

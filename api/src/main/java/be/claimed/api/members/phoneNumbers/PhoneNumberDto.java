@@ -4,9 +4,8 @@ import java.util.UUID;
 
 public class PhoneNumberDto {
 
-    public String id;
-    public String countryPrefix;
-    public String number;
+    public String mobilePhoneNumber;
+    public String telephoneNumber;
 
     public PhoneNumberDto() {
     }

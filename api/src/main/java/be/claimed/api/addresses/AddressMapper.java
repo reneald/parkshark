@@ -18,7 +18,6 @@ public class AddressMapper extends AbstractMapper<AddressDto, Address> {
     @Override
     public AddressDto toDto(Address domainObject) {
         AddressDto dtoObject = new AddressDto();
-        dtoObject.id = domainObject.getId().toString();
         dtoObject.streetName = domainObject.getStreetName();
         dtoObject.streetNumber = domainObject.getStreetNumber();
         dtoObject.postCodeDto = postCodeMapper.toDto(domainObject.getPostCode());

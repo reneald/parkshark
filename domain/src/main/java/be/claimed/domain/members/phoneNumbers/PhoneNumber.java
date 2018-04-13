@@ -3,47 +3,43 @@ package be.claimed.domain.members.phoneNumbers;
 import be.claimed.domain.abstracts.AbstractEntity;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-@Entity
-@Table (name = "phone_numbers")
-public class PhoneNumber extends AbstractEntity {
+@Embeddable
+public class PhoneNumber{
 
-    @Column (name = "country_prefix")
-    @NotNull(message = "country prefix must be filled in")
-    private String countryPrefix;
+    @Column (name = "mobile_phone_number")
+    private String mobilePhoneNumber;
 
-    @Column (name = "phone_number")
-    @NotNull(message = "country prefix must be filled in")
-    private String number;
+    @Column (name = "telephone_number")
+    private String telephoneNumber;
 
 
-    public PhoneNumber(UUID id) {
-        super(id);
+    private PhoneNumber() {
     }
+
 
     public PhoneNumber(PhoneNumberBuilder phoneNumberBuilder) {
-        super(phoneNumberBuilder.id);
-        this.countryPrefix = phoneNumberBuilder.countryPrefix;
-        this.number = phoneNumberBuilder.number;
+        this.mobilePhoneNumber = phoneNumberBuilder.mobilePhoneNumber;
+        this.telephoneNumber = phoneNumberBuilder.telephoneNumber;
     }
 
-    public String getCountryPrefix() {
-        return countryPrefix;
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
     }
 
-    public String getNumber() {
-        return number;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
 
     public static class PhoneNumberBuilder {
-        private UUID id;
-        private String countryPrefix;
-        private String number;
+        private String mobilePhoneNumber;
+        private String telephoneNumber;
 
         public static PhoneNumberBuilder phoneNumber() {
             return new PhoneNumberBuilder();
@@ -53,13 +49,13 @@ public class PhoneNumber extends AbstractEntity {
             return new PhoneNumber(this);
         }
 
-        public PhoneNumberBuilder withCountryPrefix(String countryPrefix) {
-            this.countryPrefix = countryPrefix;
+        public PhoneNumberBuilder withMobilePhoneNumber(String mobilePhoneNumber) {
+            this.mobilePhoneNumber = mobilePhoneNumber;
             return this;
         }
 
-        public PhoneNumberBuilder withNumber(String number) {
-            this.number = number;
+        public PhoneNumberBuilder withTelephoneNumber(String telephoneNumber) {
+            this.telephoneNumber = telephoneNumber;
             return this;
         }
     }

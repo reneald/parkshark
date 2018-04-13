@@ -8,6 +8,7 @@ import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.members.phoneNumbers.PhoneNumber;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +18,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "members")
 public class Member extends AbstractEntity {
-    //TODO change EVERYTHING! (to include contact person)
 
     @Column(name = "first_name")
     @NotNull(message = "First name cannot be empty")
@@ -27,17 +27,15 @@ public class Member extends AbstractEntity {
     @NotNull(message = "Last name cannot be empty")
     private String lastName;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_address_id")
+    @Embedded
     private Address address;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_email_id")
+    @Embedded
     private Email email;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "fk_member_id")
-    private List<PhoneNumber> phoneNumbers;
+    @Embedded
+
+    private List<@NotNull(message = "You must provide at least one phone number")PhoneNumber> phoneNumbers;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "fk_member_id")

@@ -7,7 +7,6 @@ import be.claimed.api.members.phoneNumbers.PhoneNumberDto;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 public class MemberDto {
 
