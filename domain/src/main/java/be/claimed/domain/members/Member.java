@@ -5,11 +5,13 @@ import be.claimed.domain.abstracts.AbstractEntity;
 import be.claimed.domain.addresses.Address;
 import be.claimed.domain.members.emails.Email;
 import be.claimed.domain.members.licensePlates.LicensePlate;
+import be.claimed.domain.members.membershiplevel.MembershipLevel;
 import be.claimed.domain.members.phoneNumbers.PhoneNumber;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -33,6 +35,10 @@ public class Member extends AbstractEntity {
     @Embedded
     private Email email;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_mem_level")
+    private MembershipLevel membershipLevel;
+
     @Embedded
     private List<@NotNull(message = "You must provide at least one phone number") PhoneNumber> phoneNumbers;
 
@@ -53,6 +59,7 @@ public class Member extends AbstractEntity {
         phoneNumbers = memberBuilder.phoneNumbers;
         licensePlates = memberBuilder.licensePlate;
         registrationDate = memberBuilder.registrationDate;
+        membershipLevel = memberBuilder.membershipLevel;
     }
 
     private Member() {
@@ -86,6 +93,14 @@ public class Member extends AbstractEntity {
         return registrationDate;
     }
 
+    public MembershipLevel getMembershipLevel() {
+        return membershipLevel;
+    }
+
+    public void setMembershipLevel(MembershipLevel membershipLevel) {
+        this.membershipLevel = membershipLevel;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -103,6 +118,7 @@ public class Member extends AbstractEntity {
         private List<PhoneNumber> phoneNumbers;
         private List<LicensePlate> licensePlate;
         private LocalDate registrationDate;
+        private MembershipLevel membershipLevel;
 
         public static MemberBuilder member(){
             return new MemberBuilder();
@@ -149,6 +165,11 @@ public class Member extends AbstractEntity {
 
         public MemberBuilder withRegistrationDate(LocalDate registrationDate) {
             this.registrationDate = registrationDate;
+            return this;
+        }
+
+        public MemberBuilder withMembershipLevel(MembershipLevel membershipLevel) {
+            this.membershipLevel = membershipLevel;
             return this;
         }
     }

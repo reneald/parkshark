@@ -1,5 +1,6 @@
 package be.claimed.api.members;
 
+import be.claimed.domain.members.Member;
 import be.claimed.service.members.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,8 @@ public class MemberController {
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public MemberDto registerMember(@RequestBody MemberDto memberToRegister) {
-        return memberMapper.toDto(memberService.createMember(memberMapper.toDomain(memberToRegister)));
+        Member debugMember = memberService.createMember(memberMapper.toDomain(memberToRegister));
+        return memberMapper.toDto(debugMember);
     }
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)

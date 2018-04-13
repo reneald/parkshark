@@ -17,6 +17,7 @@ class MemberServiceTest {
 
     @Mock
     private MemberRepository memberRepository;
+    @Mock
     private Member firstMember;
 
     @BeforeEach
