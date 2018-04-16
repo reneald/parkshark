@@ -82,3 +82,16 @@ CREATE TABLE divisions(
         CONSTRAINT divisions_pk PRIMARY KEY (id),
         CONSTRAINT divisions_parent_fk FOREIGN KEY (fk_parent_div_id) REFERENCES parkshark.divisions(id)
 );
+
+--8
+CREATE TABLE allocations(
+    id VARCHAR2(150) NOT NULL,
+    fk_member_id VARCHAR2(150) NOT NULL,
+    fk_license_plate_id VARCHAR2(150) NOT NULL,
+    fk_parking_lot_id VARCHAR2(150) NOT NULL,
+    start_time DATE NOT NULL,
+        CONSTRAINT allocations_pk PRIMARY KEY (id),
+        CONSTRAINT alloc_member_fk FOREIGN KEY (fk_member_id) REFERENCES members(id),
+        CONSTRAINT alloc_license_fk FOREIGN KEY (fk_license_plate_id) REFERENCES license_plates(id),
+        CONSTRAINT alloc_parking_fk FOREIGN KEY (fk_parking_lot_id) REFERENCES parking_lots(id)
+);
