@@ -6,8 +6,6 @@ public enum BuildingType {
     ABOVE_GROUND,
     UNDERGROUND;
 
-    private String name;
-
     BuildingType() {
     }
 

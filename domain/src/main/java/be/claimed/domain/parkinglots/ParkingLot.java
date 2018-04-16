@@ -20,7 +20,7 @@ public class ParkingLot extends AbstractEntity {
     @NotNull(message = "Please provide a name")
     private String name;
 
-    @OneToOne
+    @OneToOne ()
     @JoinColumn (name = "fk_division_id")
     @NotNull
     private Division division;
@@ -47,6 +47,11 @@ public class ParkingLot extends AbstractEntity {
     private Address address;
 
     private ParkingLot() {
+    }
+
+    public ParkingLot setDivision(Division division) {
+        this.division = division;
+        return this;
     }
 
     public ParkingLot(ParkingLotBuilder parkingLotBuilder) {

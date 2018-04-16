@@ -6,14 +6,20 @@ import be.claimed.api.members.emails.EmailMapper;
 import be.claimed.api.members.phoneNumbers.PhoneNumberMapper;
 import be.claimed.domain.contactPersons.ContactPerson;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.stream.Collectors;
 
 @Named
 public class ContactPersonMapper extends AbstractMapper<ContactPersonDto, ContactPerson> {
 
+    @Inject
     private PhoneNumberMapper phoneNumberMapper;
+
+    @Inject
     private EmailMapper emailMapper;
+
+    @Inject
     private AddressMapper addressMapper;
 
     @Override

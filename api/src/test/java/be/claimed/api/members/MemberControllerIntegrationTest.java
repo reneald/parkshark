@@ -18,8 +18,6 @@ import java.util.List;
 
 public class MemberControllerIntegrationTest extends ControllerIntegrationTest<Member, MemberRepository> {
 
-    @Inject
-    private MemberController memberController;
 
     @Test
     void create() {

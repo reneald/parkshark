@@ -32,4 +32,5 @@ public abstract class AbstractRepository<T extends AbstractEntity> {
     public T findById(UUID id, Class<T> abstractClass) {
         return entityManager.find(abstractClass, id);
     }
+
 }
