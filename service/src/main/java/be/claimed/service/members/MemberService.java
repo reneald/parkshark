@@ -2,6 +2,7 @@ package be.claimed.service.members;
 
 import be.claimed.domain.members.Member;
 import be.claimed.domain.members.MemberRepository;
+import be.claimed.domain.members.membershiplevel.MembershipLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,14 @@ public class MemberService {
     }
 
     public Member createMember (Member member){
+        setMembershipLevel(member);
         return memberRepository.create(member);
+    }
+
+    private void setMembershipLevel(Member member) {
+        if (member.getMembershipLevel() == null) {
+            member.setMembershipLevel(MembershipLevel.BRONZE);
+        }
     }
 
     public List<Member> getAllMembers(){

@@ -18,9 +18,9 @@ public class MemberDto {
     public List<PhoneNumberDto> phoneNumbers;
     public List<LicensePlateDto> licensePlates;
     public LocalDate registrationDate;
+    public String membershipLevel;
 
     public MemberDto() {
     }
-
 
 }

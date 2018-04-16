@@ -6,6 +6,17 @@ label varchar2 (50) not null,
 constraint postal_codes_pk primary key (id)
 );
 
+--01
+create table mem_levels (
+    name varchar2(15CHAR) NOT NULL,
+    CONSTRAINT levels_pk PRIMARY KEY (name),
+    CONSTRAINT enum_name CHECK (name IN ('bronze', 'silver', 'gold'))
+);
+
+INSERT INTO mem_levels (name) VALUES ('bronze');
+INSERT INTO mem_levels (name) VALUES ('silver');
+INSERT INTO mem_levels (name) VALUES ('gold');
+
 --03
 create table members (
 id varchar2(150) not null,
@@ -17,11 +28,12 @@ fk_postal_code_id varchar2(150) not null,
 email varchar2 (100) not null,
 telephone_number varchar2(15),
 mobile_phone_number varchar2 (15),
+fk_mem_level varchar2(15CHAR),
 registration_date date not null,
 constraint members_pk primary key (id),
-constraint members_postal_codes_fk foreign key (fk_postal_code_id) references postal_codes (id)
+constraint members_postal_codes_fk foreign key (fk_postal_code_id) references postal_codes (id),
+constraint members_levels_fk foreign key (fk_mem_level) references mem_levels(name)
 );
-
 
 --05
 create table license_plates (
@@ -74,4 +86,17 @@ CREATE TABLE divisions(
     fk_parent_div_id VARCHAR2(150) NOT NULL,
         CONSTRAINT divisions_pk PRIMARY KEY (id),
         CONSTRAINT divisions_parent_fk FOREIGN KEY (fk_parent_div_id) REFERENCES parkshark.divisions(id)
+);
+
+--8
+CREATE TABLE allocations(
+    id VARCHAR2(150) NOT NULL,
+    fk_member_id VARCHAR2(150) NOT NULL,
+    fk_license_plate_id VARCHAR2(150) NOT NULL,
+    fk_parking_lot_id VARCHAR2(150) NOT NULL,
+    start_time DATE NOT NULL,
+        CONSTRAINT allocations_pk PRIMARY KEY (id),
+        CONSTRAINT alloc_member_fk FOREIGN KEY (fk_member_id) REFERENCES members(id),
+        CONSTRAINT alloc_license_fk FOREIGN KEY (fk_license_plate_id) REFERENCES license_plates(id),
+        CONSTRAINT alloc_parking_fk FOREIGN KEY (fk_parking_lot_id) REFERENCES parking_lots(id)
 );

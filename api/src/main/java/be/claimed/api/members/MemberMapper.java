@@ -6,6 +6,7 @@ import be.claimed.api.members.emails.EmailMapper;
 import be.claimed.api.members.licensePlates.LicensePlateMapper;
 import be.claimed.api.members.phoneNumbers.PhoneNumberMapper;
 import be.claimed.domain.members.Member;
+import be.claimed.domain.members.membershiplevel.MembershipLevel;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,12 +45,14 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
                 .map(licensePlate -> licensePlateMapper.toDto(licensePlate))
                 .collect(Collectors.toList());
         dtoObject.registrationDate = domainObject.getRegistrationDate();
+        dtoObject.membershipLevel = domainObject.getMembershipLevel().getName();
 
         return dtoObject;
     }
 
     @Override
     public Member toDomain(MemberDto dtoObject) {
+        //TODO move member registration date creation to service
         Member domainObject = Member.MemberBuilder.member()
                 .withFirstName(dtoObject.firstName)
                 .withLastName(dtoObject.lastName)
@@ -62,6 +65,7 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
                         .map(licensePlateDto -> licensePlateMapper.toDomain(licensePlateDto))
                         .collect(Collectors.toList()))
                 .withRegistrationDate(LocalDate.now())
+                .withMembershipLevel(dtoObject.membershipLevel == null ? null :MembershipLevel.valueOf(dtoObject.membershipLevel.toUpperCase()))
                 .build();
 
         return domainObject;
