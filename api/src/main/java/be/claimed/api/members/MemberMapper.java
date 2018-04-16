@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Named
 public class MemberMapper extends AbstractMapper<MemberDto, Member> {
 
-
     private AddressMapper addressMapper;
     private EmailMapper emailMapper;
     private PhoneNumberMapper phoneNumberMapper;
