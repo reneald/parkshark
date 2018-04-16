@@ -8,6 +8,7 @@ import be.claimed.domain.divisions.Division;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.UUID;

@@ -8,7 +8,7 @@ import be.claimed.domain.members.MemberRepository;
 import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.parkinglots.ParkingLot;
 import be.claimed.domain.parkinglots.ParkingLotRepository;
-import org.assertj.core.api.Assertions;
+import be.claimed.service.parkingLots.ParkingLotService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,9 +56,11 @@ class AllocationServiceTest {
     List<ParkingLot> parkingLots;
     @Mock
     ParkingLotRepository parkingLotRepository;
+    @Mock
+    ParkingLotService parkingLotService;
 
     @InjectMocks
-    AllocationService service;
+    AllocationService allocationService;
 
     @BeforeEach
     void setUp() {
@@ -85,7 +87,11 @@ class AllocationServiceTest {
         when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
         when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
         when(firstAllocation.getParkingLot()).thenReturn(secondParkingLot);
-        service.create(firstAllocation);
+        when(secondParkingLot.getCapacity()).thenReturn(400);
+        List<Allocation> allocations = new ArrayList<>();
+        allocations.add(firstAllocation);
+        when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
+        allocationService.create(firstAllocation);
 
         verify(allocationRepository, times(1)).create(firstAllocation);
     }
@@ -97,8 +103,12 @@ class AllocationServiceTest {
         when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
         when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
         when(firstAllocation.getParkingLot()).thenReturn(secondParkingLot);
+        when(secondParkingLot.getCapacity()).thenReturn(400);
+        List<Allocation> allocations = new ArrayList<>();
+        allocations.add(firstAllocation);
+        when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
         LocalDateTime now = LocalDateTime.now();
-        service.create(firstAllocation, now);
+        allocationService.create(firstAllocation, now);
 
         verify(firstAllocation, times(1)).setStartTime(now);
     }
@@ -107,7 +117,7 @@ class AllocationServiceTest {
     void create_whenGivenIllegalMember_shouldThrowException() {
         when(firstAllocation.getMember()).thenReturn(thirdMember);
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.create(firstAllocation))
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
                 .withMessage("Member unknown");
     }
 
@@ -117,7 +127,7 @@ class AllocationServiceTest {
         when(firstMember.getLicensePlates()).thenReturn(licensePlates);
         when(firstAllocation.getLicensePlate()).thenReturn(secondLicensePlate);
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.create(firstAllocation))
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
                 .withMessage("This license plate is not registered to this member!");
     }
 
@@ -129,8 +139,24 @@ class AllocationServiceTest {
         when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
         when(firstAllocation.getParkingLot()).thenReturn(firstParkingLot);
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> service.create(firstAllocation))
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
                 .withMessage("This is NOT a ParkShark parking lot");
+    }
+
+    @Test
+    void create_whenGivenParkingLotWithNoFreeSpaces_shouldThrowException() {
+        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
+        when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
+        when(firstAllocation.getMember()).thenReturn(firstMember);
+        when(secondParkingLot.getCapacity()).thenReturn(1);
+        when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
+        when(firstAllocation.getParkingLot()).thenReturn(secondParkingLot);
+        List<Allocation> allocations = new ArrayList<>();
+        allocations.add(firstAllocation);
+        when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
+
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
+                .withMessage("Sorry, this parking lot has no free spaces right now.");
     }
 
 }

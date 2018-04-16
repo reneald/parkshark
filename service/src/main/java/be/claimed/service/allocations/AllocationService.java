@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -40,7 +42,20 @@ public class AllocationService {
         if (!parkingLotRepository.getAll(ParkingLot.class).contains(allocation.getParkingLot())) {
             throw new IllegalArgumentException("This is NOT a ParkShark parking lot");
         }
+        if (getAmountOfOpenAllocationsByParkingLot(allocation.getParkingLot())>=allocation.getParkingLot().getCapacity()) {
+            throw new IllegalArgumentException("Sorry, this parking lot has no free spaces right now.");
+        }
         allocation.setStartTime(startTime);
         return allocationRepository.create(allocation);
+    }
+
+    public List<Allocation> getOpenAllocationsByParkingLot(ParkingLot parkingLot) {
+        return allocationRepository.getAll(Allocation.class).stream()
+                .filter(allocation -> allocation.getParkingLot().equals(parkingLot))
+                .collect(Collectors.toList());
+    }
+
+    public Integer getAmountOfOpenAllocationsByParkingLot(ParkingLot parkingLot){
+        return getOpenAllocationsByParkingLot(parkingLot).size();
     }
 }

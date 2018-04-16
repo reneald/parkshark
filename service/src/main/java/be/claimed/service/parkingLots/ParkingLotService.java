@@ -21,4 +21,9 @@ public class ParkingLotService {
     public ParkingLot createParkingLot(ParkingLot parkingLot){
         return parkingLotRepository.create(parkingLot);
     }
+
+
+//    public boolean isParkingLotFull(ParkingLot parkingLot) {
+//        return false;
+//    }
 }
