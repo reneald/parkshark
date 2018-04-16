@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +32,10 @@ public class DivisionService {
 
     public List<Division> getAll(){
         return divisionRepository.getAll(Division.class);
+    }
+
+    public Division findByName (String name){
+        return divisionRepository.findByName(name);
     }
 
 }

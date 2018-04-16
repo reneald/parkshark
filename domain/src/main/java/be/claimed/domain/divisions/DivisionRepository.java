@@ -9,4 +9,10 @@ import java.util.List;
 @Repository
 public class DivisionRepository extends AbstractRepository<Division> {
 
+    public Division findByName (String name){
+        return  super.getEntityManager().createQuery("from Division where name = :name", Division.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
+
 }

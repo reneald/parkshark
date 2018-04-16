@@ -53,12 +53,17 @@ last_name varchar2(30) not null,
 telephone_number varchar2(15),
 mobile_phone_number varchar2 (15),
 email varchar2 (100) not null,
-constraint contact_persons_pk primary key (id)
+street_name varchar2 (100) not null,
+street_number varchar2 (5) not null,
+fk_postal_code_id varchar2(150) not null,
+constraint contact_persons_pk primary key (id),
+constraint contact_persons_postal_codes_fk foreign key (fk_postal_code_id) postal_codes(id)
 );
 
 --07
 create table parking_lots (
 id varchar2(150) not null,
+name varchar2(50) not null,
 fk_division_id varchar2(150) not null,
 building_type varchar2(50) not null,
 capacity number not null,
