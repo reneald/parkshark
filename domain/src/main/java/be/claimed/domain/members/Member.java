@@ -101,6 +101,11 @@ public class Member extends AbstractEntity {
         this.membershipLevel = membershipLevel;
     }
 
+    public Member setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Member{" +

@@ -45,4 +45,10 @@ class ParkingLotServiceTest {
         parkingLotService.registerParkingLot(firstParkingLot);
         verify(parkingLotRepository, times(1)).create(firstParkingLot);
     }
+
+    @Test
+    void getAllParkingLots_shouldCallRepositoryMethod(){
+        parkingLotService.getAllParkingLots();
+        verify(parkingLotRepository).getAll(ParkingLot.class);
+    }
 }

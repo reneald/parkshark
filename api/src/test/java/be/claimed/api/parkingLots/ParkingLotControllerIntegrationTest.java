@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingLotControllerIntegrationTest extends ControllerIntegrationTest <ParkingLot, ParkingLotRepository>{
+public class ParkingLotControllerIntegrationTest extends ControllerIntegrationTest<ParkingLot, ParkingLotRepository> {
 
     @Inject
     private DivisionRepository divisionRepository;
@@ -39,10 +39,10 @@ public class ParkingLotControllerIntegrationTest extends ControllerIntegrationTe
     }
 
     @Test
-    void registerParkingLot(){
+    void registerParkingLot() {
         PhoneNumberDto phoneNumberDto = new PhoneNumberDto();
         phoneNumberDto.telephoneNumber = "465798965";
-        List<PhoneNumberDto> phoneNumberDtos= new ArrayList<>();
+        List<PhoneNumberDto> phoneNumberDtos = new ArrayList<>();
         phoneNumberDtos.add(phoneNumberDto);
 
         EmailDto emailDto = new EmailDto();
@@ -54,14 +54,14 @@ public class ParkingLotControllerIntegrationTest extends ControllerIntegrationTe
         contactPersonDto.emailDto = emailDto;
         contactPersonDto.phoneNumbers = phoneNumberDtos;
 
-       PostCodeDto postCodeDto = new PostCodeDto();
-       postCodeDto.label = "Argentina";
-       postCodeDto.postCode = "0071";
+        PostCodeDto postCodeDto = new PostCodeDto();
+        postCodeDto.label = "Argentina";
+        postCodeDto.postCode = "0071";
 
         AddressDto addressDto = new AddressDto();
         addressDto.streetNumber = "74";
         addressDto.streetName = "Nowhere";
-        addressDto.postCodeDto =postCodeDto;
+        addressDto.postCodeDto = postCodeDto;
 
         DivisionDto divisionDto1 = DivisionDto.divisionDto()
                 .withName("BigDivision")
@@ -87,5 +87,55 @@ public class ParkingLotControllerIntegrationTest extends ControllerIntegrationTe
         Assertions.assertThat(actualParkingLotDto.buildingTypeDto).isEqualTo("ABOVE_GROUND");
         Assertions.assertThat(actualParkingLotDto.contactPersonDto.firstName).isEqualTo("Michael");
         Assertions.assertThat(actualParkingLotDto.addressDto.streetNumber).isEqualTo("74");
+    }
+
+    @Test
+    void getAllParkingLots() {
+        PhoneNumberDto phoneNumberDto = new PhoneNumberDto();
+        phoneNumberDto.telephoneNumber = "465798965";
+        List<PhoneNumberDto> phoneNumberDtos = new ArrayList<>();
+        phoneNumberDtos.add(phoneNumberDto);
+
+        EmailDto emailDto = new EmailDto();
+        emailDto.email = "hello@gmail.com";
+
+        ContactPersonDto contactPersonDto = new ContactPersonDto();
+        contactPersonDto.firstName = "Michael";
+        contactPersonDto.lastName = "Jordan";
+        contactPersonDto.emailDto = emailDto;
+        contactPersonDto.phoneNumbers = phoneNumberDtos;
+
+        PostCodeDto postCodeDto = new PostCodeDto();
+        postCodeDto.label = "Argentina";
+        postCodeDto.postCode = "0071";
+
+        AddressDto addressDto = new AddressDto();
+        addressDto.streetNumber = "74";
+        addressDto.streetName = "Nowhere";
+        addressDto.postCodeDto = postCodeDto;
+
+        DivisionDto divisionDto1 = DivisionDto.divisionDto()
+                .withName("BigDivision")
+                .withOriginalName("LittleDivision")
+                .withDirector("BAAAAAAA");
+
+        new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", getPort(), "divisions"), divisionDto1, DivisionDto.class);
+
+        DivisionDto divisionDto = DivisionDto.divisionDto().withName("BigDivision");
+
+        ParkingLotDto parkingLotDto = new ParkingLotDto();
+        parkingLotDto.name = "wait";
+        parkingLotDto.buildingTypeDto = "ABOVE_GROUND";
+        parkingLotDto.capacity = 4545;
+        parkingLotDto.contactPersonDto = contactPersonDto;
+        parkingLotDto.addressDto = addressDto;
+        parkingLotDto.pricePerHour = 4545.4;
+        parkingLotDto.divisionDto = divisionDto;
+
+        new TestRestTemplate().postForObject(String.format("http://localhost:%s/%s/", getPort(), "parkingLots"), parkingLotDto, ParkingLotDto.class);
+
+        ParkingLotDto[] actual = new TestRestTemplate().getForObject(String.format("http://localhost:%s/%s/", getPort(), "parkingLots"), ParkingLotDto[].class);
+
+        Assertions.assertThat(actual.length).isEqualTo(1);
     }
 }

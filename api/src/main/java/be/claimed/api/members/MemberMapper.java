@@ -11,6 +11,7 @@ import be.claimed.domain.members.membershiplevel.MembershipLevel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 @Named
@@ -44,7 +45,7 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
         dtoObject.licensePlates = domainObject.getLicensePlates() == null ? null : domainObject.getLicensePlates().stream()
                 .map(licensePlate -> licensePlateMapper.toDto(licensePlate))
                 .collect(Collectors.toList());
-        dtoObject.registrationDate = domainObject.getRegistrationDate();
+        dtoObject.registrationDate = domainObject.getRegistrationDate().format(DateTimeFormatter.BASIC_ISO_DATE);
         dtoObject.membershipLevel = domainObject.getMembershipLevel().getName();
 
         return dtoObject;
@@ -64,7 +65,6 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
                 .withLicensePlate(dtoObject.licensePlates == null ? null : dtoObject.licensePlates.stream()
                         .map(licensePlateDto -> licensePlateMapper.toDomain(licensePlateDto))
                         .collect(Collectors.toList()))
-                .withRegistrationDate(LocalDate.now())
                 .withMembershipLevel(dtoObject.membershipLevel == null ? null :MembershipLevel.valueOf(dtoObject.membershipLevel.toUpperCase()))
                 .build();
 

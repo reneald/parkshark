@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,6 +24,7 @@ public class MemberService {
 
     public Member createMember (Member member){
         setMembershipLevel(member);
+        member.setRegistrationDate(LocalDate.now());
         return memberRepository.create(member);
     }
 
