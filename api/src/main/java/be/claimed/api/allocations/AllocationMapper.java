@@ -6,6 +6,9 @@ import be.claimed.api.members.licensePlates.LicensePlateMapper;
 import be.claimed.api.parkingLots.ParkingLotMapper;
 import be.claimed.domain.allocations.Allocation;
 
+import javax.inject.Named;
+
+@Named
 public class AllocationMapper extends AbstractMapper<AllocationDto, Allocation> {
     private MemberMapper memberMapper;
     private LicensePlateMapper licensePlateMapper;
