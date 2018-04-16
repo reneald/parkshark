@@ -52,6 +52,7 @@ public class MemberMapper extends AbstractMapper<MemberDto, Member> {
 
     @Override
     public Member toDomain(MemberDto dtoObject) {
+        //TODO move member registration date creation to service
         Member domainObject = Member.MemberBuilder.member()
                 .withFirstName(dtoObject.firstName)
                 .withLastName(dtoObject.lastName)

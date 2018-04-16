@@ -6,9 +6,7 @@ import be.claimed.domain.members.Member;
 import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.parkinglots.ParkingLot;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,15 +15,18 @@ import java.util.UUID;
 @Table(name = "allocations")
 public class Allocation extends AbstractEntity {
 
-    @Column(name = "member")
+    @ManyToOne
+    @JoinColumn(name = "fk_member_id")
     @NotNull(message = "Please provide a member.")
     private Member member;
 
-    @Column(name= "license_plates")
+    @ManyToOne
+    @JoinColumn(name = "fk_license_plate_id")
     @NotNull(message = "Please provide a license plate.")
     private LicensePlate licensePlate;
 
-    @Column(name="parking_lot")
+    @ManyToOne
+    @JoinColumn(name = "fk_parking_lot_id")
     @NotNull(message = "Please provide a parking lot.")
     private ParkingLot parkingLot;
 
@@ -58,6 +59,11 @@ public class Allocation extends AbstractEntity {
 
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    public Allocation setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+        return this;
     }
 
     public static class AllocationBuilder extends AbstractBuilder<Allocation> {
