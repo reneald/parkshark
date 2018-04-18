@@ -8,8 +8,6 @@ import be.claimed.domain.members.MemberRepository;
 import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.parkinglots.ParkingLot;
 import be.claimed.domain.parkinglots.ParkingLotRepository;
-import be.claimed.service.parkingLots.ParkingLotService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -120,7 +118,6 @@ class AllocationServiceTest {
     void create_whenGivenIllegalLicensePlate_shouldThrowException() {
         //GIVEN
         Allocation testAllocation = AllocationTestBuilder.allocationWithIllegalLicensePlate().build();
-
         //WHEN&THEN
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
                 .withMessage("This license plate is not registered to this member!");

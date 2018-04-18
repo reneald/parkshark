@@ -1,6 +1,5 @@
 package be.claimed.domain.allocations;
 
-import be.claimed.domain.abstracts.AbstractBuilder;
 import be.claimed.domain.abstracts.AbstractEntity;
 import be.claimed.domain.members.Member;
 import be.claimed.domain.members.licensePlates.LicensePlate;
@@ -9,7 +8,6 @@ import be.claimed.domain.parkinglots.ParkingLot;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "allocations")

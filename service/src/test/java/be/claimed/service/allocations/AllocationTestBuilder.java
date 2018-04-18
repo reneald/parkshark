@@ -14,11 +14,6 @@ import java.util.UUID;
 import static org.mockito.Mockito.*;
 
 public class AllocationTestBuilder {
-    private UUID id;
-    private Member member;
-    private LicensePlate licensePlate;
-    private ParkingLot parkingLot;
-    private LocalDateTime startTime;
 
     private AllocationBuilder allocationBuilder;
 
