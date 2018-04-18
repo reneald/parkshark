@@ -26,13 +26,6 @@ public abstract class AbstractEntity {
     public AbstractEntity() {
     }
 
-//    public void generateId() throws IllegalStateException{
-//        if (id != null){
-//            throw new IllegalStateException("Id already present");
-//        }
-//        id = UUID.randomUUID();
-//    }
-
     public UUID getId() {
         return id;
     }
