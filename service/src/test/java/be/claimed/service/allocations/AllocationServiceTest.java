@@ -140,5 +140,4 @@ class AllocationServiceTest {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
                 .withMessage("Sorry, this parking lot has no free spaces right now.");
     }
-
 }
