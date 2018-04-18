@@ -5,6 +5,7 @@ import be.claimed.api.members.MemberMapper;
 import be.claimed.api.members.licensePlates.LicensePlateMapper;
 import be.claimed.api.parkingLots.ParkingLotMapper;
 import be.claimed.domain.allocations.Allocation;
+import be.claimed.domain.allocations.AllocationBuilder;
 
 import javax.inject.Named;
 
@@ -34,7 +35,7 @@ public class AllocationMapper extends AbstractMapper<AllocationDto, Allocation> 
 
     @Override
     public Allocation toDomain(AllocationDto dtoObject) {
-        Allocation domainObject = Allocation.AllocationBuilder.allocation()
+        Allocation domainObject = AllocationBuilder.allocation()
                 .withMember(dtoObject.memberDto == null ? null : memberMapper.toDomain(dtoObject.memberDto))
                 .withLicensePlate(dtoObject.licensePlateDto == null ? null : licensePlateMapper.toDomain(dtoObject.licensePlateDto))
                 .withParkingLot(dtoObject.parkingLotDto == null ? null : parkingLotMapper.toDomain(dtoObject.parkingLotDto))

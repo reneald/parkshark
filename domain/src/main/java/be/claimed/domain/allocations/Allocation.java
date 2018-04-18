@@ -38,11 +38,11 @@ public class Allocation extends AbstractEntity {
     }
 
     public Allocation(AllocationBuilder builder) {
-        super(builder.id);
-        this.member = builder.member;
-        this.licensePlate = builder.licensePlate;
-        this.parkingLot = builder.parkingLot;
-        this.startTime = builder.startTime;
+        super(builder.getId());
+        this.member = builder.getMember();
+        this.licensePlate = builder.getLicensePlate();
+        this.parkingLot = builder.getParkingLot();
+        this.startTime = builder.getStartTime();
     }
 
     public Member getMember() {
@@ -66,44 +66,44 @@ public class Allocation extends AbstractEntity {
         return this;
     }
 
-    public static class AllocationBuilder extends AbstractBuilder<Allocation> {
-        private UUID id;
-        private Member member;
-        private LicensePlate licensePlate;
-        private ParkingLot parkingLot;
-        private LocalDateTime startTime;
-
-        public static AllocationBuilder allocation() {
-            return new AllocationBuilder();
-        }
-
-        public Allocation build() {
-            return new Allocation(this);
-        }
-
-        public AllocationBuilder withId(UUID id) {
-            this.id = id;
-            return this;
-        }
-
-        public AllocationBuilder withMember(Member member) {
-            this.member = member;
-            return this;
-        }
-
-        public AllocationBuilder withLicensePlate(LicensePlate licensePlate) {
-            this.licensePlate = licensePlate;
-            return this;
-        }
-
-        public AllocationBuilder withParkingLot(ParkingLot parkingLot) {
-            this.parkingLot = parkingLot;
-            return this;
-        }
-
-        public AllocationBuilder withStartTime(LocalDateTime startTime) {
-            this.startTime = startTime;
-            return this;
-        }
-    }
+    //    public static class AllocationBuilder extends AbstractBuilder<Allocation> {
+//        private UUID id;
+//        private Member member;
+//        private LicensePlate licensePlate;
+//        private ParkingLot parkingLot;
+//        private LocalDateTime startTime;
+//
+//        public static AllocationBuilder allocation() {
+//            return new AllocationBuilder();
+//        }
+//
+//        public Allocation build() {
+//            return new Allocation(this);
+//        }
+//
+//        public AllocationBuilder withId(UUID id) {
+//            this.id = id;
+//            return this;
+//        }
+//
+//        public AllocationBuilder withMember(Member member) {
+//            this.member = member;
+//            return this;
+//        }
+//
+//        public AllocationBuilder withLicensePlate(LicensePlate licensePlate) {
+//            this.licensePlate = licensePlate;
+//            return this;
+//        }
+//
+//        public AllocationBuilder withParkingLot(ParkingLot parkingLot) {
+//            this.parkingLot = parkingLot;
+//            return this;
+//        }
+//
+//        public AllocationBuilder withStartTime(LocalDateTime startTime) {
+//            this.startTime = startTime;
+//            return this;
+//        }
+//    }
 }

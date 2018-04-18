@@ -49,13 +49,13 @@ public class AllocationService {
         return allocationRepository.create(allocation);
     }
 
+    public Integer getAmountOfOpenAllocationsByParkingLot(ParkingLot parkingLot){
+        return getOpenAllocationsByParkingLot(parkingLot).size();
+    }
+
     public List<Allocation> getOpenAllocationsByParkingLot(ParkingLot parkingLot) {
         return allocationRepository.getAll(Allocation.class).stream()
                 .filter(allocation -> allocation.getParkingLot().equals(parkingLot))
                 .collect(Collectors.toList());
-    }
-
-    public Integer getAmountOfOpenAllocationsByParkingLot(ParkingLot parkingLot){
-        return getOpenAllocationsByParkingLot(parkingLot).size();
     }
 }

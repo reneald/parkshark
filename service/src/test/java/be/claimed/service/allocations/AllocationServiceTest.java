@@ -9,6 +9,7 @@ import be.claimed.domain.members.licensePlates.LicensePlate;
 import be.claimed.domain.parkinglots.ParkingLot;
 import be.claimed.domain.parkinglots.ParkingLotRepository;
 import be.claimed.service.parkingLots.ParkingLotService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
@@ -28,36 +30,36 @@ class AllocationServiceTest {
     @Mock
     AllocationRepository allocationRepository;
     @Mock
-    Allocation firstAllocation;
-    @Mock
-    Allocation secondAllocation;
+    static Allocation firstAllocation;
 
     List<Allocation> allocations;
 
     @Mock
     MemberRepository memberRepository;
     @Mock
-    Member firstMember;
+    static Member firstMember;
     @Mock
-    Member secondMember;
+    static Member secondMember;
     @Mock
-    Member thirdMember;
+    static Member thirdMember;
+
     List<Member> members;
 
     @Mock
-    LicensePlate firstLicensePlate;
+    static LicensePlate firstLicensePlate;
     @Mock
-    LicensePlate secondLicensePlate;
+    static LicensePlate secondLicensePlate;
     List<LicensePlate> licensePlates;
     @Mock
-    ParkingLot firstParkingLot;
+    static ParkingLot parkingLotCapacity400;
     @Mock
-    ParkingLot secondParkingLot;
+    static ParkingLot parkingLotCapacity1;
+    @Mock
+    static ParkingLot illegalParkingLot;
+
     List<ParkingLot> parkingLots;
     @Mock
     ParkingLotRepository parkingLotRepository;
-    @Mock
-    ParkingLotService parkingLotService;
 
     @InjectMocks
     AllocationService allocationService;
@@ -66,96 +68,79 @@ class AllocationServiceTest {
     void setUp() {
         allocations = new ArrayList<>();
         allocations.add(firstAllocation);
-        allocations.add(secondAllocation);
         members = new ArrayList<>();
         members.add(firstMember);
         members.add(secondMember);
         licensePlates = new ArrayList<>();
         licensePlates.add(firstLicensePlate);
         parkingLots = new ArrayList<>();
-        parkingLots.add(secondParkingLot);
+        parkingLots.add(parkingLotCapacity400);
+        parkingLots.add(parkingLotCapacity1);
 
+        when(firstAllocation.getParkingLot()).thenReturn(parkingLotCapacity1);
+        when(parkingLotCapacity400.getCapacity()).thenReturn(400);
+        when(parkingLotCapacity1.getCapacity()).thenReturn(1);
         when(allocationRepository.create(firstAllocation)).thenReturn(firstAllocation);
         when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
         when(memberRepository.getAll(Member.class)).thenReturn(members);
+        when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
     }
 
     @Test
     void create_shouldCallRepositoryMethod() {
-        when(firstAllocation.getMember()).thenReturn(firstMember);
-        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
-        when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
-        when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
-        when(firstAllocation.getParkingLot()).thenReturn(secondParkingLot);
-        when(secondParkingLot.getCapacity()).thenReturn(400);
-        List<Allocation> allocations = new ArrayList<>();
-        allocations.add(firstAllocation);
-        when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
-        allocationService.create(firstAllocation);
-
-        verify(allocationRepository, times(1)).create(firstAllocation);
+        //GIVEN
+        Allocation testAllocation = AllocationTestBuilder.legalAllocation().build();
+        //WHEN
+        allocationService.create(testAllocation);
+        //THEN
+        verify(allocationRepository, times(1)).create(testAllocation);
     }
 
     @Test
     void create_shouldSetStartTime() {
-        when(firstAllocation.getMember()).thenReturn(firstMember);
-        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
-        when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
-        when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
-        when(firstAllocation.getParkingLot()).thenReturn(secondParkingLot);
-        when(secondParkingLot.getCapacity()).thenReturn(400);
-        List<Allocation> allocations = new ArrayList<>();
-        allocations.add(firstAllocation);
-        when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
+        //GIVEN
+        Allocation testAllocation = AllocationTestBuilder.legalAllocation().build();
         LocalDateTime now = LocalDateTime.now();
-        allocationService.create(firstAllocation, now);
-
-        verify(firstAllocation, times(1)).setStartTime(now);
+        //WHEN
+        allocationService.create(testAllocation, now);
+        //THEN
+        assertThat(testAllocation.getStartTime()).isEqualTo(now);
     }
 
     @Test
     void create_whenGivenIllegalMember_shouldThrowException() {
+        //GIVEN
         when(firstAllocation.getMember()).thenReturn(thirdMember);
-
+        //WHEN&THEN
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
                 .withMessage("Member unknown");
     }
 
     @Test
     void create_whenGivenIllegalLicensePlate_shouldThrowException() {
-        when(firstAllocation.getMember()).thenReturn(firstMember);
-        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
-        when(firstAllocation.getLicensePlate()).thenReturn(secondLicensePlate);
+        //GIVEN
+        Allocation testAllocation = AllocationTestBuilder.allocationWithIllegalLicensePlate().build();
 
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
+        //WHEN&THEN
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
                 .withMessage("This license plate is not registered to this member!");
     }
 
     @Test
     void create_whenGivenIllegalParkingLot_shouldThrowException() {
-        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
-        when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
-        when(firstAllocation.getMember()).thenReturn(firstMember);
-        when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
-        when(firstAllocation.getParkingLot()).thenReturn(firstParkingLot);
-
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
+        //GIVEN
+        Allocation testAllocation = AllocationTestBuilder.allocationWithIllegalParkingLot().build();
+        //WHEN&THEN
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
                 .withMessage("This is NOT a ParkShark parking lot");
     }
 
     @Test
     void create_whenGivenParkingLotWithNoFreeSpaces_shouldThrowException() {
-        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
-        when(firstAllocation.getLicensePlate()).thenReturn(firstLicensePlate);
-        when(firstAllocation.getMember()).thenReturn(firstMember);
-        when(secondParkingLot.getCapacity()).thenReturn(1);
-        when(parkingLotRepository.getAll(ParkingLot.class)).thenReturn(parkingLots);
-        when(firstAllocation.getParkingLot()).thenReturn(secondParkingLot);
-        List<Allocation> allocations = new ArrayList<>();
-        allocations.add(firstAllocation);
-        when(allocationRepository.getAll(Allocation.class)).thenReturn(allocations);
-
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(firstAllocation))
+        //GIVEN
+        Allocation testAllocation = AllocationTestBuilder.allocationWithParkingLotOfSize1().build();
+        //WHEN&THEN
+        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
                 .withMessage("Sorry, this parking lot has no free spaces right now.");
     }
 
