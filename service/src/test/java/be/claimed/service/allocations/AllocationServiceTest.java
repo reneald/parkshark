@@ -26,14 +26,14 @@ import static org.mockito.Mockito.*;
 class AllocationServiceTest {
 
     @Mock
-    AllocationRepository allocationRepository;
+    private AllocationRepository allocationRepository;
+    private List<Allocation> allocations;
     @Mock
     static Allocation firstAllocation;
 
-    List<Allocation> allocations;
-
     @Mock
-    MemberRepository memberRepository;
+    private MemberRepository memberRepository;
+    private List<Member> members;
     @Mock
     static Member firstMember;
     @Mock
@@ -41,13 +41,15 @@ class AllocationServiceTest {
     @Mock
     static Member thirdMember;
 
-    List<Member> members;
-
+    private List<LicensePlate> licensePlates;
     @Mock
     static LicensePlate firstLicensePlate;
     @Mock
     static LicensePlate secondLicensePlate;
-    List<LicensePlate> licensePlates;
+
+    @Mock
+    private ParkingLotRepository parkingLotRepository;
+    private List<ParkingLot> parkingLots;
     @Mock
     static ParkingLot parkingLotCapacity400;
     @Mock
@@ -55,12 +57,8 @@ class AllocationServiceTest {
     @Mock
     static ParkingLot illegalParkingLot;
 
-    List<ParkingLot> parkingLots;
-    @Mock
-    ParkingLotRepository parkingLotRepository;
-
     @InjectMocks
-    AllocationService allocationService;
+    private AllocationService allocationService;
 
     @BeforeEach
     void setUp() {

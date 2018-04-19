@@ -11,59 +11,60 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static be.claimed.service.allocations.AllocationServiceTest.firstMember;
 import static org.mockito.Mockito.*;
 
 public class AllocationTestBuilder {
 
     private AllocationBuilder allocationBuilder;
+    private static List<LicensePlate> licensePlates;
 
     private AllocationTestBuilder() {
         allocationBuilder = AllocationBuilder.allocation();
     }
 
-    public static AllocationTestBuilder legalAllocation() {
-        List<LicensePlate> licensePlates = new ArrayList<>();
+    private static void setUp() {
+        licensePlates = new ArrayList<>();
         licensePlates.add(AllocationServiceTest.firstLicensePlate);
-        when(AllocationServiceTest.firstMember.getLicensePlates()).thenReturn(licensePlates);
+        when(firstMember.getLicensePlates()).thenReturn(licensePlates);
+    }
+
+    static AllocationTestBuilder legalAllocation() {
+        setUp();
         return allocation()
-                .withMember(AllocationServiceTest.firstMember)
+                .withMember(firstMember)
                 .withLicensePlate(AllocationServiceTest.firstLicensePlate)
                 .withParkingLot(AllocationServiceTest.parkingLotCapacity400);
     }
 
-    public static AllocationTestBuilder allocationWithIllegalLicensePlate() {
-        List<LicensePlate> licensePlates = new ArrayList<>();
-        licensePlates.add(AllocationServiceTest.firstLicensePlate);
+    static AllocationTestBuilder allocationWithIllegalLicensePlate() {
+        setUp();
         return allocation()
-                .withMember(AllocationServiceTest.firstMember)
+                .withMember(firstMember)
                 .withLicensePlate(AllocationServiceTest.secondLicensePlate);
     }
 
-    public static AllocationTestBuilder allocationWithIllegalParkingLot() {
-        List<LicensePlate> licensePlates = new ArrayList<>();
-        licensePlates.add(AllocationServiceTest.firstLicensePlate);
-        when(AllocationServiceTest.firstMember.getLicensePlates()).thenReturn(licensePlates);
+    static AllocationTestBuilder allocationWithIllegalParkingLot() {
+        setUp();
         return allocation()
-                .withMember(AllocationServiceTest.firstMember)
+                .withMember(firstMember)
                 .withLicensePlate(AllocationServiceTest.firstLicensePlate)
                 .withParkingLot(AllocationServiceTest.illegalParkingLot);
     }
 
-    public static AllocationTestBuilder allocationWithParkingLotOfSize1() {
-        List<LicensePlate> licensePlates = new ArrayList<>();
-        licensePlates.add(AllocationServiceTest.firstLicensePlate);
-        when(AllocationServiceTest.firstMember.getLicensePlates()).thenReturn(licensePlates);
+    static AllocationTestBuilder allocationWithParkingLotOfSize1() {
+        setUp();
         return allocation()
-                .withMember(AllocationServiceTest.firstMember)
+                .withMember(firstMember)
                 .withLicensePlate(AllocationServiceTest.firstLicensePlate)
                 .withParkingLot(AllocationServiceTest.parkingLotCapacity1);
     }
 
-    public static AllocationTestBuilder allocation() {
+    static AllocationTestBuilder allocation() {
         return new AllocationTestBuilder();
     }
 
-    public Allocation build() {
+    Allocation build() {
         return allocationBuilder.build();
     }
 
