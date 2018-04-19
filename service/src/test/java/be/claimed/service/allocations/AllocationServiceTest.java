@@ -43,9 +43,9 @@ class AllocationServiceTest {
 
     private List<LicensePlate> licensePlates;
     @Mock
-    static LicensePlate firstLicensePlate;
+    static LicensePlate knownLicensePlate;
     @Mock
-    static LicensePlate secondLicensePlate;
+    static LicensePlate unknownLicensePlate;
 
     @Mock
     private ParkingLotRepository parkingLotRepository;
@@ -68,7 +68,7 @@ class AllocationServiceTest {
         members.add(firstMember);
         members.add(secondMember);
         licensePlates = new ArrayList<>();
-        licensePlates.add(firstLicensePlate);
+        licensePlates.add(knownLicensePlate);
         parkingLots = new ArrayList<>();
         parkingLots.add(parkingLotCapacity400);
         parkingLots.add(parkingLotCapacity1);
@@ -115,7 +115,7 @@ class AllocationServiceTest {
     @Test
     void create_whenGivenIllegalLicensePlate_shouldThrowException() {
         //GIVEN
-        Allocation testAllocation = AllocationTestBuilder.allocationWithIllegalLicensePlate().build();
+        Allocation testAllocation = AllocationTestBuilder.allocationWithUnknownLicensePlate().build();
         //WHEN&THEN
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
                 .withMessage("This license plate is not registered to this member!");
@@ -127,7 +127,7 @@ class AllocationServiceTest {
         Allocation testAllocation = AllocationTestBuilder.allocationWithIllegalParkingLot().build();
         //WHEN&THEN
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> allocationService.create(testAllocation))
-                .withMessage("This is NOT a ParkShark parking lot");
+                .withMessage("This is NOT a ParkShark parking lot. The Acquisitions department has been notified.");
     }
 
     @Test

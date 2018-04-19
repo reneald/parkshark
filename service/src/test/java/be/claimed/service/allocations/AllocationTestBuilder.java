@@ -25,7 +25,7 @@ public class AllocationTestBuilder {
 
     private static void setUp() {
         licensePlates = new ArrayList<>();
-        licensePlates.add(AllocationServiceTest.firstLicensePlate);
+        licensePlates.add(AllocationServiceTest.knownLicensePlate);
         when(firstMember.getLicensePlates()).thenReturn(licensePlates);
     }
 
@@ -33,22 +33,22 @@ public class AllocationTestBuilder {
         setUp();
         return allocation()
                 .withMember(firstMember)
-                .withLicensePlate(AllocationServiceTest.firstLicensePlate)
+                .withLicensePlate(AllocationServiceTest.knownLicensePlate)
                 .withParkingLot(AllocationServiceTest.parkingLotCapacity400);
     }
 
-    static AllocationTestBuilder allocationWithIllegalLicensePlate() {
+    static AllocationTestBuilder allocationWithUnknownLicensePlate() {
         setUp();
         return allocation()
                 .withMember(firstMember)
-                .withLicensePlate(AllocationServiceTest.secondLicensePlate);
+                .withLicensePlate(AllocationServiceTest.unknownLicensePlate);
     }
 
     static AllocationTestBuilder allocationWithIllegalParkingLot() {
         setUp();
         return allocation()
                 .withMember(firstMember)
-                .withLicensePlate(AllocationServiceTest.firstLicensePlate)
+                .withLicensePlate(AllocationServiceTest.knownLicensePlate)
                 .withParkingLot(AllocationServiceTest.illegalParkingLot);
     }
 
@@ -56,7 +56,7 @@ public class AllocationTestBuilder {
         setUp();
         return allocation()
                 .withMember(firstMember)
-                .withLicensePlate(AllocationServiceTest.firstLicensePlate)
+                .withLicensePlate(AllocationServiceTest.knownLicensePlate)
                 .withParkingLot(AllocationServiceTest.parkingLotCapacity1);
     }
 

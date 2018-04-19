@@ -24,7 +24,7 @@ public class AllocationController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public AllocationDto create(AllocationDto allocationDto) {
         return allocationMapper.toDto(allocationService.create(allocationMapper.toDomain(allocationDto)));
     }
