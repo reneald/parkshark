@@ -10,24 +10,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidatorFactory;
-import javax.validation.Validator;
+import javax.validation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Validated
 @Service
 @Transactional
 public class AllocationService {
     private AllocationRepository allocationRepository;
     private MemberRepository memberRepository;
     private ParkingLotRepository parkingLotRepository;
-    private Validator validator;
     private static final Logger LOGGER = LoggerFactory.getLogger("logger");
 
     @Autowired
@@ -36,24 +34,19 @@ public class AllocationService {
         this.memberRepository = memberRepository;
         this.parkingLotRepository = parkingLotRepository;
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
     }
 
     public Allocation create(Allocation allocation) {
         return create(allocation, LocalDateTime.now());
     }
 
-    public Allocation create(Allocation allocation, LocalDateTime startTime) {
+    public Allocation create(@Valid Allocation allocation, LocalDateTime startTime) {
         validate(allocation);
         allocation.setStartTime(startTime);
         return allocationRepository.create(allocation);
     }
 
     private void validate(Allocation allocation) {
-        Set<ConstraintViolation<Allocation>> constraintViolations = validator.validate(allocation);
-        constraintViolations.stream()
-                .peek(violation -> LOGGER.error(violation.getMessage()))
-                .close();
         if (!memberRepository.getAll(Member.class).contains(allocation.getMember())) {
             LOGGER.error("Member unknown");
             throw new IllegalArgumentException("Member unknown");
